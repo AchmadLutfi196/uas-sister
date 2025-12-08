@@ -1,0 +1,551 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* =========================================
+   DARK THEME (Default)
+   ========================================= */
+:root {
+  /* Color Palette */
+  --gradient-primary: linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #c084fc 100%);
+  --gradient-bg: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #0f0f1a 100%);
+  --shadow-glow: 0 0 40px rgba(139, 92, 246, 0.3);
+
+  /* Background Colors */
+  --bg-primary: #0f0f1a;
+  --bg-secondary: rgba(20, 20, 35, 0.95);
+  --bg-navbar: rgba(15, 15, 26, 0.85);
+  --bg-card: rgba(25, 25, 45, 0.9);
+  --bg-card-hover: rgba(30, 30, 50, 0.95);
+
+  /* Border Colors */
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-color-hover: rgba(139, 92, 246, 0.3);
+
+  /* Text Colors - DARK THEME */
+  --text-primary: #ffffff;
+  --text-secondary: #b0b0c0;
+  --text-muted: #7a7a8a;
+  --text-heading: #ffffff;
+  --text-body: #e0e0e8;
+
+  /* Scrollbar */
+  --scrollbar-track: #1a1a2e;
+  --scrollbar-thumb: linear-gradient(180deg, #7c3aed 0%, #a855f7 100%);
+
+  /* Glass Effect */
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-bg-strong: rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.1);
+
+  /* Navigation */
+  --nav-hover: rgba(124, 58, 237, 0.12);
+  --nav-active-bg: linear-gradient(135deg, rgba(124, 58, 237, 0.25) 0%, rgba(168, 85, 247, 0.2) 100%);
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-glow-violet: 0 4px 20px rgba(139, 92, 246, 0.25);
+
+  /* Particle Colors */
+  --particle-color: rgba(139, 92, 246, 0.6);
+  --particle-connection: rgba(139, 92, 246, 0.15);
+
+  /* Table */
+  --table-header-bg: rgba(255, 255, 255, 0.03);
+  --table-row-hover: rgba(139, 92, 246, 0.08);
+  --table-border: rgba(255, 255, 255, 0.05);
+
+  /* Input Colors */
+  --input-bg: rgba(255, 255, 255, 0.05);
+  --input-border: rgba(255, 255, 255, 0.1);
+  --input-text: #ffffff;
+  --input-placeholder: #6b7280;
+}
+
+/* =========================================
+   LIGHT THEME
+   ========================================= */
+[data-mantine-color-scheme="light"] {
+  /* Color Palette */
+  --gradient-bg: linear-gradient(135deg, #f8fafc 0%, #eef2ff 50%, #f8fafc 100%);
+
+  /* Background Colors */
+  --bg-primary: #f8fafc;
+  --bg-secondary: rgba(255, 255, 255, 0.98);
+  --bg-navbar: rgba(255, 255, 255, 0.95);
+  --bg-card: rgba(255, 255, 255, 0.95);
+  --bg-card-hover: rgba(255, 255, 255, 1);
+
+  /* Border Colors */
+  --border-color: rgba(0, 0, 0, 0.08);
+  --border-color-hover: rgba(139, 92, 246, 0.4);
+
+  /* Text Colors - LIGHT THEME */
+  --text-primary: #1a1a2e;
+  --text-secondary: #4a5568;
+  --text-muted: #718096;
+  --text-heading: #1a1a2e;
+  --text-body: #2d3748;
+
+  /* Scrollbar */
+  --scrollbar-track: #e2e8f0;
+
+  /* Glass Effect */
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-bg-strong: rgba(255, 255, 255, 0.95);
+  --glass-border: rgba(0, 0, 0, 0.08);
+
+  /* Navigation */
+  --nav-hover: rgba(124, 58, 237, 0.08);
+  --nav-active-bg: linear-gradient(135deg, rgba(124, 58, 237, 0.12) 0%, rgba(168, 85, 247, 0.08) 100%);
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+  --shadow-glow-violet: 0 4px 20px rgba(139, 92, 246, 0.15);
+
+  /* Particle Colors */
+  --particle-color: rgba(139, 92, 246, 0.4);
+  --particle-connection: rgba(139, 92, 246, 0.08);
+
+  /* Table */
+  --table-header-bg: rgba(0, 0, 0, 0.02);
+  --table-row-hover: rgba(139, 92, 246, 0.05);
+  --table-border: rgba(0, 0, 0, 0.06);
+
+  /* Input Colors */
+  --input-bg: rgba(255, 255, 255, 0.9);
+  --input-border: rgba(0, 0, 0, 0.1);
+  --input-text: #1a1a2e;
+  --input-placeholder: #9ca3af;
+}
+
+/* =========================================
+   GLOBAL RESETS & BASE STYLES
+   ========================================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--gradient-bg);
+  color: var(--text-body);
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background 0.4s ease, color 0.3s ease;
+}
+
+#root {
+  min-height: 100vh;
+  color: var(--text-primary);
+}
+
+/* =========================================
+   TYPOGRAPHY - Consistent Font Colors
+   ========================================= */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--text-heading);
+  transition: color 0.3s ease;
+}
+
+p {
+  color: var(--text-body);
+  transition: color 0.3s ease;
+}
+
+/* Make sure Mantine components inherit proper colors */
+.mantine-Text-root {
+  color: inherit;
+}
+
+.mantine-Title-root {
+  color: var(--text-heading);
+}
+
+/* Dimmed text helper */
+[data-mantine-color-scheme="light"] .mantine-Text-root[data-c="dimmed"],
+[data-mantine-color-scheme="light"] [class*="dimmed"] {
+  color: var(--text-secondary) !important;
+}
+
+[data-mantine-color-scheme="dark"] .mantine-Text-root[data-c="dimmed"],
+[data-mantine-color-scheme="dark"] [class*="dimmed"] {
+  color: var(--text-secondary) !important;
+}
+
+/* =========================================
+   SCROLLBAR STYLES
+   ========================================= */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #7c3aed 0%, #a855f7 100%);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #9333ea 0%, #c084fc 100%);
+}
+
+/* =========================================
+   SELECTION STYLES
+   ========================================= */
+::selection {
+  background: rgba(139, 92, 246, 0.4);
+  color: #fff;
+}
+
+/* =========================================
+   LINK STYLES
+   ========================================= */
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+/* =========================================
+   ANIMATION KEYFRAMES
+   ========================================= */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+  }
+
+  50% {
+    box-shadow: 0 0 40px rgba(139, 92, 246, 0.6);
+  }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================
+   UTILITY CLASSES
+   ========================================= */
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.gradient-text {
+  background: var(--gradient-primary);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 3s ease infinite;
+}
+
+/* =========================================
+   GLASS MORPHISM UTILITY
+   ========================================= */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  transition: all 0.3s ease;
+}
+
+.glass-strong {
+  background: var(--glass-bg-strong);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--glass-border);
+}
+
+/* =========================================
+   CARD STYLES
+   ========================================= */
+.modern-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: var(--text-primary);
+}
+
+.modern-card:hover {
+  border-color: var(--border-color-hover);
+  box-shadow: var(--shadow-glow-violet);
+  transform: translateY(-2px);
+}
+
+/* =========================================
+   MANTINE COMPONENT OVERRIDES
+   ========================================= */
+/* Cards and Papers */
+.mantine-Paper-root,
+.mantine-Card-root {
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+/* AppShell */
+.mantine-AppShell-main {
+  color: var(--text-primary);
+}
+
+.mantine-AppShell-header {
+  color: var(--text-primary);
+}
+
+.mantine-AppShell-navbar {
+  color: var(--text-primary);
+}
+
+/* Tables */
+.mantine-Table-table {
+  border-radius: 12px;
+  overflow: hidden;
+  color: var(--text-primary);
+}
+
+.mantine-Table-thead {
+  background: var(--table-header-bg);
+}
+
+.mantine-Table-th {
+  color: var(--text-secondary) !important;
+  font-weight: 600;
+}
+
+.mantine-Table-td {
+  color: var(--text-primary);
+}
+
+.mantine-Table-tr:hover {
+  background: var(--table-row-hover) !important;
+}
+
+/* Badges */
+.mantine-Badge-root {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* Buttons */
+.mantine-Button-root {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* NavLinks */
+.mantine-NavLink-root {
+  transition: all 0.2s ease;
+  color: var(--text-primary);
+}
+
+.mantine-NavLink-label {
+  color: inherit;
+}
+
+.mantine-NavLink-description {
+  color: var(--text-secondary);
+}
+
+/* ActionIcon */
+.mantine-ActionIcon-root {
+  transition: all 0.2s ease;
+}
+
+/* Menu */
+.mantine-Menu-dropdown {
+  background: var(--bg-card) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-color) !important;
+  box-shadow: var(--shadow-lg) !important;
+}
+
+.mantine-Menu-item {
+  transition: all 0.2s ease;
+  color: var(--text-primary);
+}
+
+.mantine-Menu-item:hover {
+  background: var(--nav-hover) !important;
+}
+
+.mantine-Menu-label {
+  color: var(--text-secondary);
+}
+
+/* Tooltip */
+.mantine-Tooltip-tooltip {
+  background: var(--bg-card) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-md);
+  color: var(--text-primary);
+}
+
+/* Inputs */
+.mantine-Input-input,
+.mantine-TextInput-input,
+.mantine-PasswordInput-input,
+.mantine-Select-input {
+  background-color: var(--input-bg);
+  border-color: var(--input-border);
+  color: var(--input-text);
+  transition: all 0.2s ease;
+}
+
+.mantine-Input-input::placeholder,
+.mantine-TextInput-input::placeholder,
+.mantine-PasswordInput-input::placeholder {
+  color: var(--input-placeholder);
+}
+
+.mantine-Input-input:focus,
+.mantine-TextInput-input:focus,
+.mantine-PasswordInput-input:focus,
+.mantine-Select-input:focus {
+  border-color: #8b5cf6;
+  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
+}
+
+/* Input Labels */
+.mantine-InputWrapper-label {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* SegmentedControl */
+.mantine-SegmentedControl-root {
+  background-color: var(--glass-bg);
+  border: 1px solid var(--border-color);
+}
+
+.mantine-SegmentedControl-label {
+  color: var(--text-primary);
+}
+
+/* Container consistent color */
+.mantine-Container-root {
+  color: var(--text-primary);
+}
+
+/* Stack and Group inherit color */
+.mantine-Stack-root,
+.mantine-Group-root {
+  color: inherit;
+}
+
+/* Avatar text */
+.mantine-Avatar-root {
+  color: inherit;
+}
+
+/* =========================================
+   SPECIFIC THEME OVERRIDES
+   ========================================= */
+/* Light mode specific */
+[data-mantine-color-scheme="light"] .mantine-Paper-root {
+  box-shadow: var(--shadow-sm);
+  color: var(--text-primary);
+}
+
+[data-mantine-color-scheme="light"] .mantine-Card-root {
+  box-shadow: var(--shadow-sm);
+  color: var(--text-primary);
+}
+
+[data-mantine-color-scheme="light"] .mantine-Title-root {
+  color: var(--text-heading);
+}
+
+/* Dark mode specific */
+[data-mantine-color-scheme="dark"] .mantine-Paper-root {
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+}
+
+[data-mantine-color-scheme="dark"] .mantine-Card-root {
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+}
+
+[data-mantine-color-scheme="dark"] .mantine-Title-root {
+  color: var(--text-heading);
+}

@@ -1,0 +1,93 @@
+.welcomeCard {
+    background: var(--bg-card);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    color: var(--text-primary);
+}
+
+.welcomeCard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #b91c1c 100%);
+}
+
+.statCard {
+    background: var(--bg-card);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    color: var(--text-primary);
+}
+
+.statCard:hover {
+    border-color: var(--border-color-hover);
+    box-shadow: var(--shadow-glow-violet);
+    transform: translateY(-6px);
+}
+
+.card {
+    background: var(--bg-card);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+    color: var(--text-primary);
+}
+
+.userItem {
+    background: var(--glass-bg);
+    border: 1px solid var(--border-color);
+    transition: all 0.2s ease;
+}
+
+.userItem:hover {
+    background: var(--nav-hover);
+    border-color: var(--border-color-hover);
+}
+
+.activityItem {
+    background: var(--glass-bg);
+    border: 1px solid var(--border-color);
+    transition: all 0.2s ease;
+}
+
+.activityItem:hover {
+    background: var(--nav-hover);
+    border-color: var(--border-color-hover);
+    transform: translateX(4px);
+}
+
+/* Light theme adjustments */
+:global([data-mantine-color-scheme="light"]) .welcomeCard {
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 4px 20px rgba(239, 68, 68, 0.06);
+}
+
+:global([data-mantine-color-scheme="light"]) .statCard {
+    background: rgba(255, 255, 255, 0.98);
+}
+
+:global([data-mantine-color-scheme="light"]) .card {
+    background: rgba(255, 255, 255, 0.98);
+}
+
+:global([data-mantine-color-scheme="light"]) .userItem {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+:global([data-mantine-color-scheme="light"]) .activityItem {
+    background: rgba(0, 0, 0, 0.02);
+}

@@ -1,0 +1,59 @@
+.container {
+    display: inline-block;
+}
+
+.glowingText {
+    --glow-position: 0deg;
+
+    background: linear-gradient(var(--glow-position),
+            #7c3aed 0%,
+            #a855f7 25%,
+            #c084fc 50%,
+            #a855f7 75%,
+            #7c3aed 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+
+    filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.5));
+    animation: glowPulse 2s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+
+    0%,
+    100% {
+        filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.5));
+    }
+
+    50% {
+        filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.8));
+    }
+}
+
+.sizeSm {
+    font-size: 1rem;
+}
+
+.sizeMd {
+    font-size: 1.5rem;
+}
+
+.sizeLg {
+    font-size: 2rem;
+}
+
+.sizeXl {
+    font-size: 3rem;
+}
+
+@media (max-width: 768px) {
+    .sizeXl {
+        font-size: 2rem;
+    }
+
+    .sizeLg {
+        font-size: 1.5rem;
+    }
+}

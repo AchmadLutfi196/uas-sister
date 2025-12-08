@@ -1,0 +1,322 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int      @id @default(autoincrement())
+  email         String   @unique
+  password      String
+  name          String
+  photo         String?
+  role          Role
+  student       Student?
+  teacher       Teacher?
+  Admin         Admin?
+  // kritikSaran   KritikSaran[]
+  telephone     String?
+  tanggalLahir  DateTime?
+  gender        Gender?
+  logs          Log[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  token         String?
+  recoveryToken String?
+  @@map("users")
+}
+
+enum Gender {
+  MAN
+  WOMAN
+}
+
+enum Role {
+  ADMIN
+  STUDENT
+  TEACHER
+}
+
+model Student {
+  id                  Int       @id @default(autoincrement())
+  user                User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId              Int       @unique
+  nim                 String    @unique
+  enrollments         Enrollment[]
+  gpa                 Float     @default(0)
+  academicAdvisorId   Int?
+  advisor             Teacher?  @relation(fields: [academicAdvisorId], references: [id])
+  sks                 Int       @default(0)
+  sksOFSemester       Int       @default(0)
+  absensi             Absensi[]
+  pembayaran          Pembayaran[]
+  statusStudent       statusStudent
+  alumni              Alumni?
+  programStudi        String
+  fakultas            String?
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+  @@map("students")
+}
+
+enum statusStudent {
+  ACTIVE
+  DO
+  LULUS
+}
+
+model Teacher {
+  id        Int       @id @default(autoincrement())
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int       @unique
+  nip       String    @unique
+  students  Student[]
+  schedules Schedule[]
+  enrollments Enrollment[]
+  gelar     String?
+  keahlian  String?
+  fakultas  String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  @@map("teachers")
+}
+
+model Admin {
+  id        Int       @id @default(autoincrement())
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int       @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Course {
+  id          Int           @id @default(autoincrement())
+  name        String
+  code        String        @unique
+  semester    Semester
+  sks         Int
+  programStudi String
+  fakultas    String?
+  isActive    Boolean?      @default(true)
+  schedule    Schedule[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  @@map("courses")
+}
+
+enum Semester {
+  semester_1
+  semester_2
+  semester_3
+  semester_4
+  semester_5
+  semester_6
+  semester_7
+  semester_8
+}
+
+model Enrollment {
+  id        Int      @id @default(autoincrement())
+  student   Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  studentId Int
+  schedule  Schedule @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
+  scheduleId Int
+  grade     Grade?
+  evaluasiDosen EvaluasiDosen?
+  isValidated Boolean @default(false)
+  validatedAt  DateTime?
+  validatedById  Int?
+  validatedBy Teacher? @relation(fields: [validatedById], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@map("enrollments")
+}
+
+enum Grade {
+  A
+  B
+  C
+  D
+  E
+}
+
+model Schedule {
+  id          Int      @id @default(autoincrement())
+  courseId    Int
+  teacherId   Int
+  day         DayOfWeek
+  time        String    // Example: "10:00-12:00"
+  room        String
+  course      Course   @relation(fields: [courseId], references: [id])
+  teacher     Teacher  @relation(fields: [teacherId], references: [id])
+  absensi     Absensi[]
+  enrollments Enrollment[]
+  kouta       Int      @default(30)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  @@map("schedules")
+}
+
+enum DayOfWeek {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
+}
+
+model Absensi {
+  id              Int      @id @default(autoincrement())
+  studentId       Int?
+  student         Student?  @relation(fields: [studentId], references: [id])
+  scheduleId      Int
+  schedule        Schedule @relation(fields: [scheduleId], references: [id])
+  statusKehadiran StatusKehadiran
+  keterangan      String?
+  pertemuan       Int
+  materi          String?
+  createAt        DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  @@map("absences")
+}
+
+enum StatusKehadiran {
+  HADIR
+  ALPA
+  SAKIT
+  IZIN
+}
+
+model Beasiswa {
+  id         Int      @id @default(autoincrement())
+  nama       String
+  deskripsi  String?
+  mulai      DateTime
+  akhir      DateTime
+  link       String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  @@map("scholarships")
+}
+
+model Berita {
+  id        Int      @id @default(autoincrement())
+  judul     String
+  konten    String   @db.LongText
+  gambar    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@map("news")
+}
+
+model KritikSaran {
+  id         Int      @id @default(autoincrement())
+  name       String
+  email      String
+  // userId     Int?
+  // user       User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  pesan      String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  @@map("feedbacks")
+}
+
+model EvaluasiDosen {
+  id           Int           @id @default(autoincrement())
+  enrollmentId Int           @unique
+  enrollment   Enrollment    @relation(fields: [enrollmentId], references: [id], onDelete: Cascade)
+  nilai        NilaiEvaluasi
+  komentar     String?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  @@map("evaluations")
+}
+
+enum NilaiEvaluasi {
+  S
+  A
+  B
+  C
+  D
+}
+
+model Pembayaran {
+  id               Int     @id @default(autoincrement())
+  studentId        Int
+  student          Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  total            Int
+  semester         Semester
+  statusPembayaran StatusPembayaran
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  @@map("payments")
+}
+
+enum StatusPembayaran {
+  FAILED
+  PENDING
+  SUCCESS
+}
+
+model Alumni {
+  id           Int      @id @default(autoincrement())
+  studentId    Int      @unique
+  student      Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  tanggalLulus DateTime
+  pekerjaan    String?
+  perusahaan   String?
+  motivasi     String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  @@map("graduates")
+}
+
+model Log {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  action    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@map("logs")
+}
+
+model Pengumuman {
+  id        Int      @id @default(autoincrement())
+  judul     String
+  konten    String   @db.LongText
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@map("announcements")
+}
+
+model Library {
+  id               Int      @id @default(autoincrement())
+  title            String
+  description      String
+  page             Int
+  author           String
+  cover            String
+  overview         String   @db.LongText
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@map("libraries")
+}
+
+model ServerStatus {
+  id          Int      @id @default(autoincrement())
+  isMaintenance Boolean @default(false)
+  updatedAt    DateTime @updatedAt
+}
+

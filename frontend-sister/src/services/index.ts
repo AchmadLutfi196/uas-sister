@@ -1,0 +1,7 @@
+export { default as api } from './api'
+export { default as authService } from './auth.service'
+export { default as studentService } from './student.service'
+export { default as courseService } from './course.service'
+export { default as scheduleService } from './schedule.service'
+export { default as enrollmentService } from './enrollment.service'
+export { default as adminService } from './admin.service'

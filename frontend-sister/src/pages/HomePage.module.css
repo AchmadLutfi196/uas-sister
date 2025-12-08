@@ -1,0 +1,103 @@
+.heroSection {
+    padding: 60px 0;
+    position: relative;
+    overflow: hidden;
+    color: var(--text-primary);
+}
+
+.heroSection::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, rgba(124, 58, 237, 0.1) 0%, transparent 50%);
+    animation: rotate 30s linear infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.heroTitle {
+    font-size: 3rem;
+    line-height: 1.1;
+    position: relative;
+    z-index: 1;
+    color: var(--text-heading);
+}
+
+@media (max-width: 768px) {
+    .heroTitle {
+        font-size: 2rem;
+    }
+}
+
+.card {
+    background: var(--bg-card);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+    color: var(--text-primary);
+}
+
+.card:hover {
+    border-color: rgba(124, 58, 237, 0.3);
+    box-shadow: 0 8px 32px rgba(124, 58, 237, 0.15);
+    transform: translateY(-2px);
+}
+
+.statCard {
+    background: var(--bg-card);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+    color: var(--text-primary);
+}
+
+.statCard:hover {
+    border-color: rgba(124, 58, 237, 0.3);
+    box-shadow: 0 8px 32px rgba(124, 58, 237, 0.15);
+    transform: translateY(-4px);
+}
+
+.activityItem {
+    background: var(--glass-bg);
+    border: 1px solid var(--border-color);
+    transition: all 0.2s ease;
+    color: var(--text-primary);
+}
+
+.activityItem:hover {
+    background: rgba(124, 58, 237, 0.05);
+    border-color: rgba(124, 58, 237, 0.2);
+}
+
+/* Light theme adjustments */
+:global([data-mantine-color-scheme="light"]) .heroSection {
+    color: var(--text-primary);
+}
+
+:global([data-mantine-color-scheme="light"]) .card {
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--text-primary);
+}
+
+:global([data-mantine-color-scheme="light"]) .statCard {
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--text-primary);
+}
+
+:global([data-mantine-color-scheme="light"]) .activityItem {
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--text-primary);
+}
