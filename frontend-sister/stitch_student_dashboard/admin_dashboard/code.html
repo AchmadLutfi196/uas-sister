@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Academic Admin Dashboard</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#3b82f6", // Blue-500
+                        "background-light": "#f1f5f9", // Slate-100
+                        "background-dark": "#0f172a", // Slate-900
+                        "surface-dark": "#1e293b", // Slate-800
+                        "surface-light": "#ffffff",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem", 
+                        "lg": "2rem", 
+                        "xl": "3rem", 
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569; 
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#020617] dark:text-white font-display overflow-hidden selection:bg-primary selection:text-white">
+<div class="flex h-screen w-full">
+<aside class="hidden lg:flex flex-col w-72 h-full border-r border-[#334155] bg-background-light dark:bg-background-dark p-6 justify-between shrink-0">
+<div class="flex flex-col gap-8">
+<div class="flex items-center gap-4 px-2">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-10 shadow-lg shadow-primary/20" data-alt="University logo abstract symbol" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD4nDOy7-pXKYlthKg6SS6P63m8Pfvmujl35Iw0kAce2O94xQ94_Pnjl5Rvfj9H5PzYCl-effPTmAMA4xtapgF_1MqEa9-9y6JpgYejJN27u83tKW8ibw56vZUy7znFUCJz1RCYeOz2McaKuc_OxFqX5caTy2AU5QFcZTuVeX1_cd4Cn1iJQ2_sGbQjLCO-PrphTWkPGXW6AyM2_qQd2wjTQksh430luPCxgGl740kdynMGri1I6B4O_9bsWWk6ZJkLxWEf_TXDq6Pg");'></div>
+<div class="flex flex-col">
+<h1 class="text-lg font-bold leading-tight">Academic Admin</h1>
+<p class="text-[#94a3b8] text-xs font-medium">University Portal</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-4 px-4 py-3 rounded-full bg-primary/20 text-primary dark:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="text-sm font-bold">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-full hover:bg-[#334155] text-[#64748b] dark:text-[#94a3b8] transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-white transition-colors">group</span>
+<span class="text-sm font-medium group-hover:text-white transition-colors">Students</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-full hover:bg-[#334155] text-[#64748b] dark:text-[#94a3b8] transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-white transition-colors">school</span>
+<span class="text-sm font-medium group-hover:text-white transition-colors">Lecturers</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-full hover:bg-[#334155] text-[#64748b] dark:text-[#94a3b8] transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-white transition-colors">menu_book</span>
+<span class="text-sm font-medium group-hover:text-white transition-colors">Courses</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-full hover:bg-[#334155] text-[#64748b] dark:text-[#94a3b8] transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-white transition-colors">account_balance</span>
+<span class="text-sm font-medium group-hover:text-white transition-colors">Finance</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-full hover:bg-[#334155] text-[#64748b] dark:text-[#94a3b8] transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-white transition-colors">settings</span>
+<span class="text-sm font-medium group-hover:text-white transition-colors">Settings</span>
+</a>
+</nav>
+</div>
+<div class="flex items-center gap-3 px-2">
+<div class="size-10 rounded-full bg-gradient-to-tr from-primary to-sky-400 p-[2px]">
+<div class="w-full h-full rounded-full bg-background-dark flex items-center justify-center overflow-hidden">
+<img alt="User avatar" class="w-full h-full object-cover opacity-80" data-alt="Administrator profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyZT6QcTqR1x2yaJPn-mQkjZkYQ4xH9Q3exXI2FFcri-M1D6EDQdyC5s0PLOwM9HK6Y6cIbrHnJV9JDdwoE6ScJVRX3fMhd8AOrd6IXxUlqkfl0pNczOXkemaXD98wgre0TJm9nWOVOSu1JGx9FtmCdka4d2mVKKRI3VXZT3eNbMNfuwjdstTLRg4qFBICd9Sw5l6DeR0SpI5s-pkmqIGkJwHvcuNbhMp4ltc-ThdN3nzX9vax8LF4ZxXJE1FGcEA-vWEpbQgBESYp"/>
+</div>
+</div>
+<div class="flex flex-col">
+<p class="text-sm font-bold dark:text-white text-slate-900">Dr. Alex Admin</p>
+<p class="text-xs text-[#94a3b8]">System Administrator</p>
+</div>
+</div>
+</aside>
+<main class="flex-1 flex flex-col h-full overflow-hidden relative">
+<header class="flex items-center justify-between px-6 py-4 border-b border-[#334155] bg-background-light dark:bg-background-dark/95 backdrop-blur-md z-10">
+<div class="flex items-center gap-4 lg:hidden">
+<button class="text-white">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h2 class="text-lg font-bold">Overview</h2>
+</div>
+<div class="hidden lg:flex items-center gap-4 flex-1 max-w-xl">
+<div class="relative w-full">
+<div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-[#94a3b8]">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="w-full bg-[#1e293b] border-none text-white text-sm rounded-full py-3 pl-12 pr-4 focus:ring-2 focus:ring-primary placeholder-[#64748b]" placeholder="Search students, staff, or courses..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-3 ml-auto">
+<button class="size-10 rounded-full bg-[#1e293b] text-white hover:text-primary transition-colors flex items-center justify-center relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-primary rounded-full border-2 border-[#1e293b]"></span>
+</button>
+<button class="h-10 px-6 rounded-full bg-primary hover:bg-primary/90 text-white text-sm font-bold transition-colors flex items-center gap-2">
+<span>New User</span>
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+</header>
+<div class="flex-1 overflow-y-auto p-6 lg:p-10 space-y-8">
+<div class="flex flex-wrap items-end justify-between gap-4">
+<div class="flex flex-col gap-1">
+<h1 class="text-3xl lg:text-4xl font-black tracking-tight dark:text-white text-slate-900">Dashboard Overview</h1>
+<p class="text-[#94a3b8] text-base">Welcome back, Administrator. Here's today's academic summary.</p>
+</div>
+<div class="flex items-center bg-[#1e293b] rounded-full p-1 pl-4 border border-[#334155]">
+<span class="text-[#94a3b8] text-sm font-medium mr-2">Period:</span>
+<select class="bg-transparent border-none text-white text-sm font-bold focus:ring-0 cursor-pointer py-2 pr-8">
+<option>This Semester</option>
+<option>Last Semester</option>
+<option>Annual Year</option>
+</select>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="bg-[#1e293b] p-6 rounded-[2rem] border border-[#334155] flex flex-col justify-between group hover:border-primary/30 transition-colors">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-[#334155] rounded-full text-white group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">groups</span>
+</div>
+<span class="flex items-center gap-1 text-primary bg-primary/10 px-2 py-1 rounded-full text-xs font-bold">
+                                +5.2%
+                                <span class="material-symbols-outlined text-sm">trending_up</span>
+</span>
+</div>
+<div>
+<p class="text-[#94a3b8] text-sm font-medium mb-1">Total Students</p>
+<p class="text-3xl font-bold text-white">1,240</p>
+</div>
+</div>
+<div class="bg-[#1e293b] p-6 rounded-[2rem] border border-[#334155] flex flex-col justify-between group hover:border-primary/30 transition-colors">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-[#334155] rounded-full text-white group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">record_voice_over</span>
+</div>
+<span class="flex items-center gap-1 text-primary bg-primary/10 px-2 py-1 rounded-full text-xs font-bold">
+                                +2.4%
+                                <span class="material-symbols-outlined text-sm">trending_up</span>
+</span>
+</div>
+<div>
+<p class="text-[#94a3b8] text-sm font-medium mb-1">Active Lecturers</p>
+<p class="text-3xl font-bold text-white">85</p>
+</div>
+</div>
+<div class="bg-[#1e293b] p-6 rounded-[2rem] border border-[#334155] flex flex-col justify-between group hover:border-primary/30 transition-colors">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-[#334155] rounded-full text-white group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">class</span>
+</div>
+<span class="flex items-center gap-1 text-[#94a3b8] bg-[#334155] px-2 py-1 rounded-full text-xs font-bold">
+                                0.0%
+                                <span class="material-symbols-outlined text-sm">remove</span>
+</span>
+</div>
+<div>
+<p class="text-[#94a3b8] text-sm font-medium mb-1">Active Courses</p>
+<p class="text-3xl font-bold text-white">42</p>
+</div>
+</div>
+<div class="bg-[#1e293b] p-6 rounded-[2rem] border border-[#334155] flex flex-col justify-between group hover:border-primary/30 transition-colors">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-[#334155] rounded-full text-white group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">pending_actions</span>
+</div>
+<span class="flex items-center gap-1 text-orange-400 bg-orange-400/10 px-2 py-1 rounded-full text-xs font-bold">
+                                +12%
+                                <span class="material-symbols-outlined text-sm">trending_up</span>
+</span>
+</div>
+<div>
+<p class="text-[#94a3b8] text-sm font-medium mb-1">Pending Approvals</p>
+<p class="text-3xl font-bold text-white">12</p>
+</div>
+</div>
+</div>
+<div class="bg-[#1e293b] rounded-[2rem] p-8 border border-[#334155] relative overflow-hidden">
+<div class="flex justify-between items-center mb-6">
+<div>
+<h3 class="text-xl font-bold text-white">Enrollment Analytics</h3>
+<p class="text-sm text-[#94a3b8]">Student registration trends over the last 6 months</p>
+</div>
+<button class="text-primary text-sm font-bold flex items-center gap-1 hover:underline">
+                        View Report
+                        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<div class="w-full h-64 relative">
+<div class="absolute left-0 top-0 bottom-0 flex flex-col justify-between text-xs text-[#64748b] pr-4 border-r border-[#334155]">
+<span>1500</span>
+<span>1000</span>
+<span>500</span>
+<span>0</span>
+</div>
+<div class="absolute left-10 right-0 top-0 bottom-0">
+<div class="w-full h-full flex flex-col justify-between">
+<div class="w-full h-px bg-[#334155]/50 border-dashed border-t border-[#334155]"></div>
+<div class="w-full h-px bg-[#334155]/50 border-dashed border-t border-[#334155]"></div>
+<div class="w-full h-px bg-[#334155]/50 border-dashed border-t border-[#334155]"></div>
+<div class="w-full h-px bg-[#334155]"></div>
+</div>
+<svg class="absolute inset-0 w-full h-full overflow-visible" preserveAspectRatio="none" viewBox="0 0 100 100">
+<defs>
+<linearGradient id="chartGradient" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.4"></stop>
+<stop offset="100%" style="stop-color:#3b82f6;stop-opacity:0"></stop>
+</linearGradient>
+</defs>
+<path d="M0,80 Q10,75 20,60 T40,50 T60,30 T80,40 T100,10 V100 H0 Z" fill="url(#chartGradient)"></path>
+<path d="M0,80 Q10,75 20,60 T40,50 T60,30 T80,40 T100,10" fill="none" stroke="#3b82f6" stroke-width="2" vector-effect="non-scaling-stroke"></path>
+<circle class="hover:scale-150 transition-transform origin-center cursor-pointer" cx="20" cy="60" fill="#0f172a" r="4" stroke="#3b82f6" stroke-width="2"></circle>
+<circle class="hover:scale-150 transition-transform origin-center cursor-pointer" cx="40" cy="50" fill="#0f172a" r="4" stroke="#3b82f6" stroke-width="2"></circle>
+<circle class="hover:scale-150 transition-transform origin-center cursor-pointer" cx="60" cy="30" fill="#0f172a" r="4" stroke="#3b82f6" stroke-width="2"></circle>
+<circle class="hover:scale-150 transition-transform origin-center cursor-pointer" cx="80" cy="40" fill="#0f172a" r="4" stroke="#3b82f6" stroke-width="2"></circle>
+<circle class="hover:scale-150 transition-transform origin-center cursor-pointer" cx="100" cy="10" fill="#0f172a" r="4" stroke="#3b82f6" stroke-width="2"></circle>
+</svg>
+</div>
+</div>
+<div class="flex justify-between pl-10 pt-2 text-xs text-[#94a3b8]">
+<span>Jan</span>
+<span>Feb</span>
+<span>Mar</span>
+<span>Apr</span>
+<span>May</span>
+<span>Jun</span>
+</div>
+</div>
+<div class="bg-[#1e293b] rounded-[2rem] p-8 border border-[#334155]">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-xl font-bold text-white">Recent Registrations</h3>
+<div class="flex gap-2">
+<button class="size-8 rounded-full bg-[#334155] text-white flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
+<span class="material-symbols-outlined text-lg">filter_list</span>
+</button>
+<button class="size-8 rounded-full bg-[#334155] text-white flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
+<span class="material-symbols-outlined text-lg">download</span>
+</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="text-[#94a3b8] text-sm border-b border-[#334155]">
+<th class="font-medium py-4 pl-2">Name / ID</th>
+<th class="font-medium py-4">Role</th>
+<th class="font-medium py-4">Department</th>
+<th class="font-medium py-4">Status</th>
+<th class="font-medium py-4 text-right pr-2">Date</th>
+</tr>
+</thead>
+<tbody class="text-sm">
+<tr class="group hover:bg-[#334155]/50 transition-colors border-b border-[#334155] last:border-0">
+<td class="py-4 pl-2">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-cover bg-center" data-alt="Student Sarah portrait" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB3Qqbv3XNATFBcbmN9mj6GMx2OfUTrK0zfi66L419mffcD_tnWTf5h09rdwF6URHbQEKLdnPyFQFem7dVjgc5W01BEuvMXvPtgw3hdfi1VES7b6x3B5wVQBtmBtOoUIUcwu4n5mZPVAg9U0-IOfzlm5yJmc6ywhtD-XOBb8FiSN5porHMKOgIkEngeqdKZ0Mh41P81htcYvqiJXr7LhCdHoL85Zn9JVcviggTdYn66ROOzDvGzK8Zs1Hvf1nRmha54nXjCorYC7QE-");'></div>
+<div>
+<p class="font-bold text-white">Sarah Jenkins</p>
+<p class="text-[#64748b] text-xs">ID: 240091</p>
+</div>
+</div>
+</td>
+<td class="py-4 text-gray-300">Student</td>
+<td class="py-4 text-gray-300">Computer Science</td>
+<td class="py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#172554] text-primary">
+                                    Active
+                                </span>
+</td>
+<td class="py-4 text-right text-gray-400 pr-2">Oct 24, 2023</td>
+</tr>
+<tr class="group hover:bg-[#334155]/50 transition-colors border-b border-[#334155] last:border-0">
+<td class="py-4 pl-2">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-cover bg-center" data-alt="Lecturer Dr. Mike portrait" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAAgost3ubSYyS5JEyBiF6MAoUPryV2_u7IoFBC6RQZFqZ3YCoVYUBqGzGMugnQ1evAlaCkvCU_EMLwkTr5dUgaInoBBNZKm3MYAqDxwRlLTBPxMk12v4AeHo2DAayFCa47psVQuTmI3qPrjyhXnUpeZalx2phHfz4V9ef3Cw2x94yofmawnHBoojhkKrtlJTWA-Gios2CPZkOlTlGhiPAixEJpDH-bod91puNwqzIdvVGznhwsjNm8jlc3LKtbaL_raiRVg_oF3DDX");'></div>
+<div>
+<p class="font-bold text-white">Dr. Mike Ross</p>
+<p class="text-[#64748b] text-xs">ID: L-8821</p>
+</div>
+</div>
+</td>
+<td class="py-4 text-gray-300">Lecturer</td>
+<td class="py-4 text-gray-300">Law &amp; Ethics</td>
+<td class="py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#431407] text-orange-400">
+                                    Pending
+                                </span>
+</td>
+<td class="py-4 text-right text-gray-400 pr-2">Oct 23, 2023</td>
+</tr>
+<tr class="group hover:bg-[#334155]/50 transition-colors border-b border-[#334155] last:border-0">
+<td class="py-4 pl-2">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-cover bg-center" data-alt="Student Emily portrait" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB_VTZniIY2f0T5itgX8NmK_WwHfb-4N0kW14b6yzf7Qr1ibAB0v03RIBgj3tKGl4pKnHfBWKl338rCKHeX5ufEHUS_c-Edrv6SXcgJdWhGf6fmHSkZmirJsX1hv6Tab_yAUtvbhNQnm84gy9n4REXYhK5o34-gxk3NmIux0Fu7xMqU1V_E6HCgZqKGlxmoOwzggUiuxX1c43Xc1Lgufw96yuheBCfEzB24CNBYwKJ5QHCApWqNiXSdVDM9AYSSzwldlnLRMXG06JWO");'></div>
+<div>
+<p class="font-bold text-white">Emily Blunt</p>
+<p class="text-[#64748b] text-xs">ID: 240102</p>
+</div>
+</div>
+</td>
+<td class="py-4 text-gray-300">Student</td>
+<td class="py-4 text-gray-300">Design</td>
+<td class="py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#172554] text-primary">
+                                    Active
+                                </span>
+</td>
+<td class="py-4 text-right text-gray-400 pr-2">Oct 23, 2023</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="mt-4 flex justify-center">
+<button class="text-[#94a3b8] hover:text-white text-sm font-medium flex items-center gap-2 transition-colors">
+                        View All Registrations
+                        <span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>

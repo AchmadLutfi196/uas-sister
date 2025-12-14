@@ -1,329 +1,330 @@
-import { useState, useEffect } from 'react'
-import {
-    Container,
-    Title,
-    Text,
-    Card,
-    Group,
-    Badge,
-    ThemeIcon,
-    Stack,
-    Paper,
-    Avatar,
-    Box,
-    Table,
-    Skeleton,
-    TextInput,
-    ActionIcon,
-    Menu,
-    Modal,
-    Button,
-    SegmentedControl,
-    Tabs,
-    Tooltip,
-} from '@mantine/core'
+import { useEffect, useState } from 'react'
+import { Loader, Text, Modal } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
-import {
-    IconSearch,
-    IconDotsVertical,
-    IconEdit,
-    IconTrash,
-    IconUser,
-    IconSchool,
-    IconMail,
-    IconPhone,
-    IconEye,
-    IconFilter,
-} from '@tabler/icons-react'
-import adminService, { type AdminUser } from '../../services/admin.service'
-import Swal from 'sweetalert2'
+import { adminService } from '../../services'
+import type { AdminUser } from '../../services/admin.service'
 import styles from './UsersManagement.module.css'
+
+type RoleFilter = 'ALL' | 'STUDENT' | 'TEACHER'
 
 export function UsersManagement() {
     const [users, setUsers] = useState<AdminUser[]>([])
-    const [isLoading, setIsLoading] = useState(true)
+    const [filteredUsers, setFilteredUsers] = useState<AdminUser[]>([])
+    const [loading, setLoading] = useState(true)
     const [searchQuery, setSearchQuery] = useState('')
-    const [filterRole, setFilterRole] = useState<'all' | 'STUDENT' | 'TEACHER'>('all')
+    const [roleFilter, setRoleFilter] = useState<RoleFilter>('ALL')
     const [selectedUser, setSelectedUser] = useState<AdminUser | null>(null)
-    const [detailOpened, { open: openDetail, close: closeDetail }] = useDisclosure(false)
+    const [opened, { open, close }] = useDisclosure(false)
 
     useEffect(() => {
         loadUsers()
     }, [])
 
+    useEffect(() => {
+        filterUsers()
+    }, [users, searchQuery, roleFilter])
+
     const loadUsers = async () => {
         try {
+            setLoading(true)
             const response = await adminService.getUsers()
             setUsers(response.data || [])
         } catch (error) {
             console.error('Error loading users:', error)
         } finally {
-            setIsLoading(false)
+            setLoading(false)
         }
     }
 
-    const filteredUsers = users.filter(user => {
-        const matchesSearch = user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            user.email.toLowerCase().includes(searchQuery.toLowerCase())
-        const matchesRole = filterRole === 'all' || user.role === filterRole
-        return matchesSearch && matchesRole
-    })
+    const filterUsers = () => {
+        let result = [...users]
 
-    const handleDelete = async (user: AdminUser) => {
-        const result = await Swal.fire({
-            title: 'Hapus Pengguna?',
-            text: `Apakah Anda yakin ingin menghapus ${user.name}?`,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#ef4444',
-            cancelButtonColor: '#6b7280',
-            confirmButtonText: 'Ya, Hapus!',
-            cancelButtonText: 'Batal',
-        })
-
-        if (result.isConfirmed) {
-            try {
-                await adminService.deleteUser(user.id, user.role as 'STUDENT' | 'TEACHER')
-                await loadUsers()
-                Swal.fire('Berhasil!', 'Pengguna berhasil dihapus.', 'success')
-            } catch (error) {
-                Swal.fire('Gagal!', 'Terjadi kesalahan saat menghapus pengguna.', 'error')
-            }
+        // Filter by role
+        if (roleFilter !== 'ALL') {
+            result = result.filter(user => user.role === roleFilter)
         }
+
+        // Filter by search query
+        if (searchQuery) {
+            const query = searchQuery.toLowerCase()
+            result = result.filter(user =>
+                user.name.toLowerCase().includes(query) ||
+                user.email.toLowerCase().includes(query) ||
+                user.student?.nim?.toLowerCase().includes(query) ||
+                user.teacher?.nip?.toLowerCase().includes(query)
+            )
+        }
+
+        setFilteredUsers(result)
     }
 
-    const handleViewDetail = (user: AdminUser) => {
+    const handleViewUser = (user: AdminUser) => {
         setSelectedUser(user)
-        openDetail()
+        open()
     }
 
-    const students = filteredUsers.filter(u => u.role === 'STUDENT')
-    const teachers = filteredUsers.filter(u => u.role === 'TEACHER')
+    const stats = {
+        total: users.length,
+        students: users.filter(u => u.role === 'STUDENT').length,
+        teachers: users.filter(u => u.role === 'TEACHER').length,
+        active: users.length, // Assuming all are active
+    }
 
     return (
-        <Container size="xl" py="xl">
-            <Group justify="space-between" mb="xl">
-                <div>
-                    <Title order={2}>Manajemen Pengguna</Title>
-                    <Text c="dimmed" size="sm">Kelola data mahasiswa dan dosen</Text>
+        <div className={styles.pageWrapper}>
+            <div className={styles.container}>
+                {/* Header */}
+                <div className={styles.header}>
+                    <div className={styles.headerContent}>
+                        <h1 className={styles.pageTitle}>Manajemen Pengguna</h1>
+                        <p className={styles.pageSubtitle}>Kelola semua pengguna sistem</p>
+                    </div>
+                    <div className={styles.headerActions}>
+                        <button className={styles.addBtn}>
+                            <span className="material-symbols-outlined">person_add</span>
+                            Tambah Pengguna
+                        </button>
+                    </div>
                 </div>
-                <Badge size="lg" variant="light" color="blue">
-                    {users.length} Pengguna
-                </Badge>
-            </Group>
 
-            {/* Filters */}
-            <Card className={styles.card} p="md" radius="lg" mb="lg">
-                <Group justify="space-between">
-                    <TextInput
-                        placeholder="Cari nama atau email..."
-                        leftSection={<IconSearch size={18} />}
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        style={{ flex: 1, maxWidth: 400 }}
-                        radius="xl"
-                    />
-                    <SegmentedControl
-                        value={filterRole}
-                        onChange={(value) => setFilterRole(value as typeof filterRole)}
-                        data={[
-                            { label: 'Semua', value: 'all' },
-                            { label: 'Mahasiswa', value: 'STUDENT' },
-                            { label: 'Dosen', value: 'TEACHER' },
-                        ]}
-                        radius="xl"
-                    />
-                </Group>
-            </Card>
+                {/* Stats Grid */}
+                <div className={styles.statsGrid}>
+                    <div className={styles.statCard}>
+                        <div className={styles.statIcon}>
+                            <span className="material-symbols-outlined">group</span>
+                        </div>
+                        <div className={styles.statContent}>
+                            <p className={styles.statLabel}>Total Pengguna</p>
+                            <h2 className={styles.statValue}>{stats.total}</h2>
+                        </div>
+                    </div>
+                    <div className={styles.statCard}>
+                        <div className={`${styles.statIcon} ${styles.blueIcon}`}>
+                            <span className="material-symbols-outlined">school</span>
+                        </div>
+                        <div className={styles.statContent}>
+                            <p className={styles.statLabel}>Mahasiswa</p>
+                            <h2 className={styles.statValue}>{stats.students}</h2>
+                        </div>
+                    </div>
+                    <div className={styles.statCard}>
+                        <div className={`${styles.statIcon} ${styles.greenIcon}`}>
+                            <span className="material-symbols-outlined">person</span>
+                        </div>
+                        <div className={styles.statContent}>
+                            <p className={styles.statLabel}>Dosen</p>
+                            <h2 className={styles.statValue}>{stats.teachers}</h2>
+                        </div>
+                    </div>
+                    <div className={styles.statCard}>
+                        <div className={`${styles.statIcon} ${styles.purpleIcon}`}>
+                            <span className="material-symbols-outlined">check_circle</span>
+                        </div>
+                        <div className={styles.statContent}>
+                            <p className={styles.statLabel}>Aktif</p>
+                            <h2 className={styles.statValue}>{stats.active}</h2>
+                        </div>
+                    </div>
+                </div>
 
-            {/* Users Table */}
-            <Card className={styles.card} p="xl" radius="lg">
-                <Tabs defaultValue="all">
-                    <Tabs.List mb="lg">
-                        <Tabs.Tab value="all" leftSection={<IconUser size={16} />}>
-                            Semua ({filteredUsers.length})
-                        </Tabs.Tab>
-                        <Tabs.Tab value="students" leftSection={<IconSchool size={16} />}>
-                            Mahasiswa ({students.length})
-                        </Tabs.Tab>
-                        <Tabs.Tab value="teachers" leftSection={<IconUser size={16} />}>
-                            Dosen ({teachers.length})
-                        </Tabs.Tab>
-                    </Tabs.List>
-
-                    <Tabs.Panel value="all">
-                        <UserTable users={filteredUsers} isLoading={isLoading} onDelete={handleDelete} onViewDetail={handleViewDetail} />
-                    </Tabs.Panel>
-                    <Tabs.Panel value="students">
-                        <UserTable users={students} isLoading={isLoading} onDelete={handleDelete} onViewDetail={handleViewDetail} />
-                    </Tabs.Panel>
-                    <Tabs.Panel value="teachers">
-                        <UserTable users={teachers} isLoading={isLoading} onDelete={handleDelete} onViewDetail={handleViewDetail} />
-                    </Tabs.Panel>
-                </Tabs>
-            </Card>
-
-            {/* Detail Modal */}
-            <Modal opened={detailOpened} onClose={closeDetail} title="Detail Pengguna" size="lg">
-                {selectedUser && (
-                    <Stack gap="md">
-                        <Group>
-                            <Avatar
-                                size={80}
-                                color={selectedUser.role === 'STUDENT' ? 'blue' : 'green'}
-                                radius="xl"
-                            >
-                                {selectedUser.name.charAt(0).toUpperCase()}
-                            </Avatar>
-                            <div>
-                                <Text size="lg" fw={600}>{selectedUser.name}</Text>
-                                <Badge color={selectedUser.role === 'STUDENT' ? 'blue' : 'green'}>
-                                    {selectedUser.role === 'STUDENT' ? 'Mahasiswa' : 'Dosen'}
-                                </Badge>
+                {/* Table Section */}
+                <div className={styles.tableSection}>
+                    <div className={styles.tableCard}>
+                        <div className={styles.filterBar}>
+                            <div className={styles.searchWrapper}>
+                                <span className="material-symbols-outlined">search</span>
+                                <input
+                                    type="text"
+                                    className={styles.searchInput}
+                                    placeholder="Cari berdasarkan nama, email, NIM, atau NIP..."
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                />
                             </div>
-                        </Group>
+                            <div className={styles.filterTabs}>
+                                <button
+                                    className={`${styles.filterTab} ${roleFilter === 'ALL' ? styles.filterActive : ''}`}
+                                    onClick={() => setRoleFilter('ALL')}
+                                >
+                                    Semua
+                                </button>
+                                <button
+                                    className={`${styles.filterTab} ${roleFilter === 'STUDENT' ? styles.filterActive : ''}`}
+                                    onClick={() => setRoleFilter('STUDENT')}
+                                >
+                                    Mahasiswa
+                                </button>
+                                <button
+                                    className={`${styles.filterTab} ${roleFilter === 'TEACHER' ? styles.filterActive : ''}`}
+                                    onClick={() => setRoleFilter('TEACHER')}
+                                >
+                                    Dosen
+                                </button>
+                            </div>
+                        </div>
 
-                        <Paper p="md" radius="md" withBorder>
-                            <Stack gap="sm">
-                                <Group>
-                                    <IconMail size={18} />
-                                    <Text>{selectedUser.email}</Text>
-                                </Group>
-                                {selectedUser.student && (
-                                    <>
-                                        <Group>
-                                            <IconSchool size={18} />
-                                            <Text>NIM: {selectedUser.student.nim}</Text>
-                                        </Group>
-                                        <Group>
-                                            <Text c="dimmed">Program Studi:</Text>
-                                            <Text>{selectedUser.student.programStudi}</Text>
-                                        </Group>
-                                        <Group>
-                                            <Text c="dimmed">Status:</Text>
-                                            <Badge color={selectedUser.student.statusStudent === 'ACTIVE' ? 'green' : 'red'}>
-                                                {selectedUser.student.statusStudent}
-                                            </Badge>
-                                        </Group>
-                                    </>
+                        {loading ? (
+                            <div className={styles.tableLoader}>
+                                <Loader color="blue" size="lg" />
+                            </div>
+                        ) : (
+                            <div className={styles.tableWrapper}>
+                                {filteredUsers.length > 0 ? (
+                                    <table className={styles.table}>
+                                        <thead>
+                                            <tr>
+                                                <th>Pengguna</th>
+                                                <th>ID</th>
+                                                <th>Role</th>
+                                                <th>Status</th>
+                                                <th>Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {filteredUsers.map((user) => (
+                                                <tr key={user.id}>
+                                                    <td>
+                                                        <div className={styles.userCell}>
+                                                            <div className={`${styles.userAvatar} ${user.role === 'STUDENT' ? styles.blueAvatar : styles.greenAvatar}`}>
+                                                                {user.name?.charAt(0).toUpperCase()}
+                                                            </div>
+                                                            <div>
+                                                                <p className={styles.userName}>{user.name}</p>
+                                                                <p className={styles.userEmail}>{user.email}</p>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td className={styles.idCell}>
+                                                        {user.role === 'STUDENT' ? user.student?.nim : user.teacher?.nip}
+                                                    </td>
+                                                    <td>
+                                                        <span className={`${styles.roleBadge} ${user.role === 'STUDENT' ? styles.studentBadge : styles.teacherBadge}`}>
+                                                            {user.role === 'STUDENT' ? 'Mahasiswa' : 'Dosen'}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span className={`${styles.statusBadge} ${styles.activeBadge}`}>
+                                                            <span className={styles.statusDot}></span>
+                                                            Aktif
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <div className={styles.actionBtns}>
+                                                            <button
+                                                                className={styles.actionBtn}
+                                                                onClick={() => handleViewUser(user)}
+                                                            >
+                                                                <span className="material-symbols-outlined">visibility</span>
+                                                            </button>
+                                                            <button className={styles.actionBtn}>
+                                                                <span className="material-symbols-outlined">edit</span>
+                                                            </button>
+                                                            <button className={`${styles.actionBtn} ${styles.deleteBtn}`}>
+                                                                <span className="material-symbols-outlined">delete</span>
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                ) : (
+                                    <div className={styles.emptyState}>
+                                        <span className="material-symbols-outlined">search_off</span>
+                                        <Text>Tidak ada pengguna ditemukan</Text>
+                                    </div>
                                 )}
-                                {selectedUser.teacher && (
-                                    <>
-                                        <Group>
-                                            <IconUser size={18} />
-                                            <Text>NIP: {selectedUser.teacher.nip}</Text>
-                                        </Group>
-                                        {selectedUser.teacher.fakultas && (
-                                            <Group>
-                                                <Text c="dimmed">Fakultas:</Text>
-                                                <Text>{selectedUser.teacher.fakultas}</Text>
-                                            </Group>
-                                        )}
-                                    </>
-                                )}
-                            </Stack>
-                        </Paper>
+                            </div>
+                        )}
 
-                        <Group justify="flex-end">
-                            <Button variant="light" onClick={closeDetail}>Tutup</Button>
-                        </Group>
-                    </Stack>
+                        {/* Pagination */}
+                        <div className={styles.pagination}>
+                            <p className={styles.paginationInfo}>
+                                Menampilkan {filteredUsers.length} dari {users.length} pengguna
+                            </p>
+                            <div className={styles.paginationBtns}>
+                                <button className={styles.paginationBtn} disabled>
+                                    <span className="material-symbols-outlined">chevron_left</span>
+                                </button>
+                                <button className={`${styles.paginationBtn} ${styles.paginationActive}`}>1</button>
+                                <button className={styles.paginationBtn}>2</button>
+                                <button className={styles.paginationBtn}>3</button>
+                                <button className={styles.paginationBtn}>
+                                    <span className="material-symbols-outlined">chevron_right</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* User Detail Modal */}
+            <Modal
+                opened={opened}
+                onClose={close}
+                title={<span className={styles.modalTitle}>Detail Pengguna</span>}
+                centered
+                classNames={{ content: styles.modalContent }}
+            >
+                {selectedUser && (
+                    <div className={styles.detailContent}>
+                        <div className={styles.detailHeader}>
+                            <div className={`${styles.detailAvatar} ${selectedUser.role === 'STUDENT' ? styles.blueAvatar : styles.greenAvatar}`}>
+                                {selectedUser.name?.charAt(0).toUpperCase()}
+                            </div>
+                            <div>
+                                <h3 className={styles.detailName}>{selectedUser.name}</h3>
+                                <span className={`${styles.roleBadge} ${selectedUser.role === 'STUDENT' ? styles.studentBadge : styles.teacherBadge}`}>
+                                    {selectedUser.role === 'STUDENT' ? 'Mahasiswa' : 'Dosen'}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div className={styles.detailInfo}>
+                            <div className={styles.detailRow}>
+                                <span className="material-symbols-outlined">mail</span>
+                                <div>
+                                    <p className={styles.detailLabel}>Email</p>
+                                    <p className={styles.detailValue}>{selectedUser.email}</p>
+                                </div>
+                            </div>
+                            <div className={styles.detailRow}>
+                                <span className="material-symbols-outlined">badge</span>
+                                <div>
+                                    <p className={styles.detailLabel}>{selectedUser.role === 'STUDENT' ? 'NIM' : 'NIP'}</p>
+                                    <p className={styles.detailValue}>
+                                        {selectedUser.role === 'STUDENT' ? selectedUser.student?.nim : selectedUser.teacher?.nip}
+                                    </p>
+                                </div>
+                            </div>
+                            {selectedUser.role === 'STUDENT' && selectedUser.student?.programStudi && (
+                                <div className={styles.detailRow}>
+                                    <span className="material-symbols-outlined">school</span>
+                                    <div>
+                                        <p className={styles.detailLabel}>Program Studi</p>
+                                        <p className={styles.detailValue}>{selectedUser.student.programStudi}</p>
+                                    </div>
+                                </div>
+                            )}
+                            {selectedUser.role === 'TEACHER' && selectedUser.teacher?.keahlian && (
+                                <div className={styles.detailRow}>
+                                    <span className="material-symbols-outlined">psychology</span>
+                                    <div>
+                                        <p className={styles.detailLabel}>Keahlian</p>
+                                        <p className={styles.detailValue}>{selectedUser.teacher.keahlian}</p>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+
+                        <div className={styles.detailActions}>
+                            <button className={styles.detailBtn} onClick={close}>
+                                Tutup
+                            </button>
+                        </div>
+                    </div>
                 )}
             </Modal>
-        </Container>
-    )
-}
-
-function UserTable({ users, isLoading, onDelete, onViewDetail }: {
-    users: AdminUser[],
-    isLoading: boolean,
-    onDelete: (user: AdminUser) => void,
-    onViewDetail: (user: AdminUser) => void
-}) {
-    if (isLoading) {
-        return (
-            <Stack gap="md">
-                {[1, 2, 3, 4, 5].map((i) => (
-                    <Skeleton key={i} height={60} radius="md" />
-                ))}
-            </Stack>
-        )
-    }
-
-    if (users.length === 0) {
-        return (
-            <Box ta="center" py="xl">
-                <ThemeIcon size={60} radius="xl" variant="light" color="gray" mb="md">
-                    <IconUser size={30} />
-                </ThemeIcon>
-                <Text c="dimmed" size="lg">Tidak ada pengguna ditemukan</Text>
-            </Box>
-        )
-    }
-
-    return (
-        <Table.ScrollContainer minWidth={600}>
-            <Table verticalSpacing="md" highlightOnHover>
-                <Table.Thead>
-                    <Table.Tr>
-                        <Table.Th>Nama</Table.Th>
-                        <Table.Th>Email</Table.Th>
-                        <Table.Th>Role</Table.Th>
-                        <Table.Th>ID</Table.Th>
-                        <Table.Th>Aksi</Table.Th>
-                    </Table.Tr>
-                </Table.Thead>
-                <Table.Tbody>
-                    {users.map((user) => (
-                        <Table.Tr key={user.id}>
-                            <Table.Td>
-                                <Group gap="sm">
-                                    <Avatar color={user.role === 'STUDENT' ? 'blue' : 'green'} radius="xl" size="sm">
-                                        {user.name.charAt(0).toUpperCase()}
-                                    </Avatar>
-                                    <Text size="sm" fw={500}>{user.name}</Text>
-                                </Group>
-                            </Table.Td>
-                            <Table.Td>
-                                <Text size="sm" c="dimmed">{user.email}</Text>
-                            </Table.Td>
-                            <Table.Td>
-                                <Badge
-                                    variant="light"
-                                    color={user.role === 'STUDENT' ? 'blue' : 'green'}
-                                    size="sm"
-                                >
-                                    {user.role === 'STUDENT' ? 'Mahasiswa' : 'Dosen'}
-                                </Badge>
-                            </Table.Td>
-                            <Table.Td>
-                                <Text size="sm" c="dimmed">
-                                    {user.student?.nim || user.teacher?.nip || '-'}
-                                </Text>
-                            </Table.Td>
-                            <Table.Td>
-                                <Group gap="xs">
-                                    <Tooltip label="Lihat Detail">
-                                        <ActionIcon variant="subtle" color="blue" onClick={() => onViewDetail(user)}>
-                                            <IconEye size={18} />
-                                        </ActionIcon>
-                                    </Tooltip>
-                                    <Tooltip label="Edit">
-                                        <ActionIcon variant="subtle" color="orange">
-                                            <IconEdit size={18} />
-                                        </ActionIcon>
-                                    </Tooltip>
-                                    <Tooltip label="Hapus">
-                                        <ActionIcon variant="subtle" color="red" onClick={() => onDelete(user)}>
-                                            <IconTrash size={18} />
-                                        </ActionIcon>
-                                    </Tooltip>
-                                </Group>
-                            </Table.Td>
-                        </Table.Tr>
-                    ))}
-                </Table.Tbody>
-            </Table>
-        </Table.ScrollContainer>
+        </div>
     )
 }

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html class="dark" lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dashboard Mahasiswa</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#3b82f6", // Blue
+                        "background-light": "#f8fafc", // Slate 50
+                        "background-dark": "#0f172a", // Slate 900
+                        "surface-dark": "#1e293b", // Slate 800
+                        "surface-highlight": "#334155", // Slate 700
+                        "text-secondary": "#94a3b8", // Slate 400
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3b82f6;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-white font-display h-screen flex overflow-hidden selection:bg-primary selection:text-white">
+<aside class="hidden md:flex flex-col w-64 h-full bg-surface-dark border-r border-white/5 p-6 justify-between shrink-0">
+<div class="flex flex-col gap-8">
+<div class="flex items-center gap-3 px-2">
+<div class="size-10 rounded-full bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-[28px]">school</span>
+</div>
+<div class="flex flex-col">
+<h1 class="text-white text-lg font-bold leading-tight">Portal Mahasiswa</h1>
+<p class="text-text-secondary text-xs font-medium">Dashboard Akademik</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-full bg-primary/20 border border-primary/30 group transition-all" href="#">
+<span class="material-symbols-outlined text-primary group-hover:text-primary">dashboard</span>
+<p class="text-white font-bold text-sm">Dashboard</p>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full hover:bg-surface-highlight transition-all text-text-secondary hover:text-white" href="#">
+<span class="material-symbols-outlined">book</span>
+<p class="font-medium text-sm">Mata Kuliah</p>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full hover:bg-surface-highlight transition-all text-text-secondary hover:text-white" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<p class="font-medium text-sm">Nilai</p>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full hover:bg-surface-highlight transition-all text-text-secondary hover:text-white" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<p class="font-medium text-sm">Jadwal</p>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full hover:bg-surface-highlight transition-all text-text-secondary hover:text-white" href="#">
+<span class="material-symbols-outlined">attach_money</span>
+<p class="font-medium text-sm">Keuangan</p>
+</a>
+</nav>
+</div>
+<div class="flex items-center gap-3 px-4 py-3 rounded-full hover:bg-surface-highlight cursor-pointer transition-colors">
+<span class="material-symbols-outlined text-text-secondary">logout</span>
+<p class="text-text-secondary text-sm font-medium">Keluar</p>
+</div>
+</aside>
+<main class="flex-1 flex flex-col h-full overflow-y-auto bg-background-light dark:bg-background-dark relative">
+<div class="md:hidden flex items-center justify-between p-4 bg-surface-dark border-b border-white/5 sticky top-0 z-20">
+<div class="flex items-center gap-2">
+<div class="size-8 rounded-full bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-[20px]">school</span>
+</div>
+<span class="font-bold">Portal Mahasiswa</span>
+</div>
+<button class="text-white">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+<div class="flex-1 p-4 md:p-8 max-w-[1400px] mx-auto w-full flex flex-col gap-8">
+<section class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+<div class="flex items-center gap-5">
+<div class="relative">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-20 md:size-24 border-4 border-surface-dark shadow-xl" data-alt="Student profile picture showing a young smiling man" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBmcXu89qOflSJCztvkADMeSFQLb52FS_Tb__QGptHUNwkvDqbTQNyTfUUkXegdWhsmbdcZ4F8L5hd7W1b4dr-jc3_YrI6xvCCLHoYoO4guvua7I9D1Cu9y_rdstOxZ5vLvRVbSDsl41P9yu1h0bv3LBQ4YQ2KjVKDdlH21d4OVdmKxWFEDqvwCGwwI-rPXZOKYxKALaXa6jk23LFjg1_JYa9Wn3IGQuw9Ej3VKpToF1872GFTmYzu4I_VL6ZH8UO7yNVP_lqvfCrb0");'>
+</div>
+<div class="absolute bottom-0 right-0 size-6 bg-primary rounded-full border-4 border-surface-dark"></div>
+</div>
+<div class="flex flex-col">
+<h2 class="text-white text-2xl md:text-3xl font-extrabold leading-tight tracking-tight">Halo, Alex</h2>
+<div class="flex flex-wrap items-center gap-2 mt-1">
+<span class="px-3 py-1 rounded-full bg-surface-highlight text-xs font-medium text-primary border border-primary/20">Semester 5</span>
+<span class="text-text-secondary text-sm">Jurusan: Teknik Informatika</span>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap gap-3">
+<button class="flex items-center gap-2 bg-primary text-white px-5 py-3 rounded-full font-bold text-sm hover:bg-opacity-90 transition shadow-[0_0_15px_rgba(59,130,246,0.3)]">
+<span class="material-symbols-outlined text-[20px]">print</span>
+<span>Transkrip</span>
+</button>
+<button class="flex items-center gap-2 bg-surface-highlight text-white border border-white/10 px-5 py-3 rounded-full font-bold text-sm hover:bg-white/10 transition">
+<span class="material-symbols-outlined text-[20px]">mail</span>
+<span>Dosen Wali</span>
+</button>
+</div>
+</section>
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+<div class="bg-surface-dark rounded-xl p-6 relative overflow-hidden group hover:bg-surface-highlight transition-colors duration-300">
+<div class="absolute -right-6 -top-6 size-32 bg-primary/5 rounded-full blur-2xl group-hover:bg-primary/10 transition-all"></div>
+<div class="relative z-10 flex flex-col gap-1">
+<div class="flex items-center justify-between mb-2">
+<p class="text-text-secondary text-sm font-medium uppercase tracking-wider">IPK Saat Ini</p>
+<span class="material-symbols-outlined text-primary">grade</span>
+</div>
+<p class="text-white text-4xl font-extrabold leading-tight">3.85</p>
+<p class="text-primary text-sm font-medium mt-1">+0.12 dari sem lalu</p>
+</div>
+<svg class="absolute right-4 bottom-4 size-16 -rotate-90 transform opacity-20" viewBox="0 0 36 36">
+<path class="text-white/10" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="4"></path>
+<path class="text-primary" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="96, 100" stroke-width="4"></path>
+</svg>
+</div>
+<div class="bg-surface-dark rounded-xl p-6 relative overflow-hidden group hover:bg-surface-highlight transition-colors duration-300">
+<div class="absolute -right-6 -top-6 size-32 bg-cyan-500/5 rounded-full blur-2xl group-hover:bg-cyan-500/10 transition-all"></div>
+<div class="flex flex-col gap-1 relative z-10">
+<div class="flex items-center justify-between mb-2">
+<p class="text-text-secondary text-sm font-medium uppercase tracking-wider">SKS Diambil</p>
+<span class="material-symbols-outlined text-cyan-400">school</span>
+</div>
+<div class="flex items-baseline gap-1">
+<p class="text-white text-4xl font-extrabold leading-tight">102</p>
+<p class="text-text-secondary text-xl font-medium">/ 144</p>
+</div>
+<div class="w-full bg-white/10 rounded-full h-1.5 mt-3">
+<div class="bg-cyan-400 h-1.5 rounded-full" style="width: 70%"></div>
+</div>
+</div>
+</div>
+<div class="bg-surface-dark rounded-xl p-6 relative overflow-hidden group hover:bg-surface-highlight transition-colors duration-300">
+<div class="absolute -right-6 -top-6 size-32 bg-indigo-500/5 rounded-full blur-2xl group-hover:bg-indigo-500/10 transition-all"></div>
+<div class="flex flex-col gap-1 relative z-10">
+<div class="flex items-center justify-between mb-2">
+<p class="text-text-secondary text-sm font-medium uppercase tracking-wider">Kehadiran</p>
+<span class="material-symbols-outlined text-indigo-400">check_circle</span>
+</div>
+<p class="text-white text-4xl font-extrabold leading-tight">95%</p>
+<p class="text-text-secondary text-sm font-medium mt-1">Sangat baik</p>
+</div>
+</div>
+</section>
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<div class="lg:col-span-2 flex flex-col gap-6">
+<div class="bg-surface-dark rounded-xl p-6 md:p-8">
+<div class="flex items-center justify-between mb-6">
+<div>
+<h3 class="text-white text-lg font-bold">Tren IPK</h3>
+<p class="text-text-secondary text-sm">Performa 4 Semester Terakhir</p>
+</div>
+<button class="size-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition text-white">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+<div class="relative w-full h-[220px] md:h-[280px]">
+<svg class="w-full h-full" fill="none" preserveAspectRatio="none" viewBox="0 0 478 150" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient gradientUnits="userSpaceOnUse" id="paint0_linear_1131_5935" x1="236" x2="236" y1="0" y2="150">
+<stop stop-color="#3b82f6" stop-opacity="0.2"></stop>
+<stop offset="1" stop-color="#3b82f6" stop-opacity="0"></stop>
+</linearGradient>
+</defs>
+<path d="M0 109C18.15 109 18.15 21 36.3 21C54.46 21 54.46 41 72.61 41C90.77 41 90.77 93 108.92 93C127.08 93 127.08 33 145.23 33C163.38 33 163.38 101 181.54 101C199.7 101 199.7 61 217.85 61C236 61 236 45 254.15 45C272.3 45 272.3 121 290.46 121C308.62 121 308.62 149 326.77 149C344.92 149 344.92 1 363.08 1C381.23 1 381.23 81 399.38 81C417.54 81 417.54 129 435.69 129C453.85 129 453.85 25 472 25V150H0V109Z" fill="url(#paint0_linear_1131_5935)"></path>
+<path d="M0 109C18.15 109 18.15 21 36.3 21C54.46 21 54.46 41 72.61 41C90.77 41 90.77 93 108.92 93C127.08 93 127.08 33 145.23 33C163.38 33 163.38 101 181.54 101C199.7 101 199.7 61 217.85 61C236 61 236 45 254.15 45C272.3 45 272.3 121 290.46 121C308.62 121 308.62 149 326.77 149C344.92 149 344.92 1 363.08 1C381.23 1 381.23 81 399.38 81C417.54 81 417.54 129 435.69 129C453.85 129 453.85 25 472 25" stroke="#3b82f6" stroke-linecap="round" stroke-width="3"></path>
+<circle cx="363" cy="1" fill="#0f172a" r="6" stroke="#3b82f6" stroke-width="3"></circle>
+<circle cx="145" cy="33" fill="#0f172a" r="4" stroke="#3b82f6" stroke-width="2"></circle>
+</svg>
+<div class="flex justify-between mt-4 px-2">
+<span class="text-text-secondary text-xs font-bold uppercase tracking-wider">Sem 1</span>
+<span class="text-text-secondary text-xs font-bold uppercase tracking-wider">Sem 2</span>
+<span class="text-text-secondary text-xs font-bold uppercase tracking-wider">Sem 3</span>
+<span class="text-text-secondary text-xs font-bold uppercase tracking-wider text-primary">Sem 4</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-dark rounded-xl p-6">
+<div class="flex items-center justify-between mb-6">
+<div>
+<h3 class="text-white text-lg font-bold">Tenggat Waktu</h3>
+<p class="text-text-secondary text-sm">Tugas mendesak</p>
+</div>
+<a class="text-primary text-sm font-bold hover:underline" href="#">Lihat Semua</a>
+</div>
+<div class="flex flex-col gap-3">
+<div class="flex items-center gap-4 p-4 rounded-xl bg-background-dark/50 border border-white/5 hover:border-primary/50 transition-colors group">
+<div class="size-6 rounded-full border-2 border-text-secondary flex items-center justify-center group-hover:border-primary cursor-pointer transition-colors">
+<div class="size-3 rounded-full bg-primary opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<div class="flex-1">
+<p class="text-white font-bold text-base group-hover:text-primary transition-colors">Makalah Analisis Sistem</p>
+<p class="text-text-secondary text-sm">2 hari lagi</p>
+</div>
+<span class="px-3 py-1 rounded-full bg-red-500/10 text-red-400 text-xs font-bold uppercase border border-red-500/20">Penting</span>
+</div>
+<div class="flex items-center gap-4 p-4 rounded-xl bg-background-dark/50 border border-white/5 hover:border-primary/50 transition-colors group">
+<div class="size-6 rounded-full border-2 border-text-secondary flex items-center justify-center group-hover:border-primary cursor-pointer transition-colors">
+<div class="size-3 rounded-full bg-primary opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<div class="flex-1">
+<p class="text-white font-bold text-base group-hover:text-primary transition-colors">Prototipe UI/UX</p>
+<p class="text-text-secondary text-sm">5 hari lagi</p>
+</div>
+<span class="px-3 py-1 rounded-full bg-yellow-500/10 text-yellow-400 text-xs font-bold uppercase border border-yellow-500/20">Menunggu</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col h-full">
+<div class="bg-surface-dark rounded-xl p-6 h-full flex flex-col">
+<div class="flex items-center justify-between mb-6">
+<div>
+<h3 class="text-white text-lg font-bold">Jadwal Hari Ini</h3>
+<p class="text-text-secondary text-sm">Rabu, 24 Okt</p>
+</div>
+<span class="material-symbols-outlined text-text-secondary">calendar_today</span>
+</div>
+<div class="flex-1 flex flex-col">
+<div class="grid grid-cols-[40px_1fr] gap-x-3 mb-1">
+<div class="flex flex-col items-center h-full">
+<div class="size-8 rounded-full bg-primary text-white flex items-center justify-center z-10 font-bold shadow-[0_0_10px_#3b82f6]">
+<span class="material-symbols-outlined text-[18px]">code</span>
+</div>
+<div class="w-[2px] bg-white/10 h-full min-h-[40px] mt-2 mb-2"></div>
+</div>
+<div class="pb-8">
+<div class="bg-surface-highlight p-4 rounded-xl border-l-4 border-primary">
+<p class="text-white text-base font-bold">Algoritma</p>
+<div class="flex items-center gap-2 mt-1 text-text-secondary text-sm">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+<span>08:00 - 10:00</span>
+</div>
+<div class="flex items-center gap-2 mt-2 text-text-secondary text-xs">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+<span>Ruang 304</span>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-[40px_1fr] gap-x-3 mb-1">
+<div class="flex flex-col items-center h-full">
+<div class="size-8 rounded-full bg-surface-highlight text-white border border-white/20 flex items-center justify-center z-10">
+<span class="material-symbols-outlined text-[18px]">database</span>
+</div>
+<div class="w-[2px] bg-white/10 h-full min-h-[40px] mt-2 mb-2"></div>
+</div>
+<div class="pb-8">
+<div class="bg-background-dark/30 p-4 rounded-xl border border-white/5 hover:bg-surface-highlight transition-colors">
+<p class="text-white text-base font-bold">Sistem Basis Data</p>
+<div class="flex items-center gap-2 mt-1 text-text-secondary text-sm">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+<span>10:30 - 12:30</span>
+</div>
+<div class="flex items-center gap-2 mt-2 text-text-secondary text-xs">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+<span>Lab 2</span>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-[40px_1fr] gap-x-3">
+<div class="flex flex-col items-center">
+<div class="size-8 rounded-full bg-surface-highlight text-white border border-white/20 flex items-center justify-center z-10">
+<span class="material-symbols-outlined text-[18px]">lunch_dining</span>
+</div>
+</div>
+<div>
+<div class="bg-background-dark/30 p-4 rounded-xl border border-white/5 hover:bg-surface-highlight transition-colors opacity-60">
+<p class="text-white text-base font-bold">Istirahat Siang</p>
+<div class="flex items-center gap-2 mt-1 text-text-secondary text-sm">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+<span>12:30 - 13:30</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<button class="w-full mt-6 py-3 rounded-full border border-white/10 text-white text-sm font-bold hover:bg-white/5 transition flex items-center justify-center gap-2">
+<span>Lihat Kalender Lengkap</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+</div>
+</main>
+</body></html>

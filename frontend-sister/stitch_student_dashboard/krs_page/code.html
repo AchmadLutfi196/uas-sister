@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>KRS Page - Academic Portal</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#3b82f6",
+                        "background-light": "#eff6ff",
+                        "background-dark": "#0f172a",
+                        "card-dark": "#1e293b",
+                        "border-dark": "#334155",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem", 
+                        "lg": "1.5rem", 
+                        "xl": "2rem", 
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white antialiased overflow-x-hidden">
+<div class="relative flex min-h-screen w-full flex-col group/design-root">
+<header class="sticky top-0 z-50 w-full border-b border-solid dark:border-border-dark bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md px-6 py-3">
+<div class="mx-auto max-w-7xl flex items-center justify-between whitespace-nowrap">
+<div class="flex items-center gap-4 text-slate-900 dark:text-white">
+<div class="size-8 text-primary">
+<svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M12.0799 24L4 19.2479L9.95537 8.75216L18.04 13.4961L18.0446 4H29.9554L29.96 13.4961L38.0446 8.75216L44 19.2479L35.92 24L44 28.7521L38.0446 39.2479L29.96 34.5039L29.9554 44H18.0446L18.04 34.5039L9.95537 39.2479L4 28.7521L12.0799 24Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-tight hidden sm:block">Academic Portal</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8 items-center">
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-slate-600 dark:text-gray-300 hover:text-primary text-sm font-medium transition-colors" href="#">Dashboard</a>
+<a class="text-slate-900 dark:text-white font-bold text-sm leading-normal border-b-2 border-primary pb-0.5" href="#">KRS</a>
+<a class="text-slate-600 dark:text-gray-300 hover:text-primary text-sm font-medium transition-colors" href="#">Transcripts</a>
+<a class="text-slate-600 dark:text-gray-300 hover:text-primary text-sm font-medium transition-colors" href="#">Financials</a>
+</nav>
+<div class="flex items-center gap-3">
+<div class="text-right hidden sm:block">
+<p class="text-sm font-bold text-slate-900 dark:text-white">Alex Johnson</p>
+<p class="text-xs text-slate-500 dark:text-gray-400">Computer Science • 2021</p>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary" data-alt="Student profile picture placeholder" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDAaFCyQK6eVj63ZJMzy7xT3Y3eLco4zx32QGvrDqFE0r2R_S_ScAiZYlt8-gr1HNFwnIfaBp24P62A_ul2IgPDNVbPda5D8I9rz8W7aBGTlzPJK30UZToGwFaPrmd9phV-hypUlE6vGLf0H9irMuf-wCN82ihPDUT_I6PIlnrk1WvaPx-D6L5axaY-wkHmkXd3-6Auh3tBmSQ5lODDvFFZeYN6_t_wrUqxFjDL8fpz6AcfMIRKDDHd4IeDnwJUfhr02wOJsmkqWzXp");'></div>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 py-6 lg:py-8 flex flex-col gap-6">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 pb-4 border-b dark:border-border-dark">
+<div class="flex flex-col gap-2">
+<h1 class="text-3xl md:text-4xl font-black leading-tight tracking-tight text-slate-900 dark:text-white">
+                        Kartu Rencana Studi
+                    </h1>
+<div class="flex items-center gap-2 text-slate-500 dark:text-[#94a3b8]">
+<span class="material-symbols-outlined text-lg">calendar_month</span>
+<p class="text-base font-medium">Semester Ganjil 2023/2024</p>
+</div>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center justify-center gap-2 rounded-full h-10 px-5 bg-zinc-200 dark:bg-[#334155] text-slate-900 dark:text-white hover:bg-zinc-300 dark:hover:bg-[#475569] transition text-sm font-bold">
+<span class="material-symbols-outlined text-lg">history</span>
+<span>History</span>
+</button>
+<button class="flex items-center justify-center gap-2 rounded-full h-10 px-5 bg-zinc-200 dark:bg-[#334155] text-slate-900 dark:text-white hover:bg-zinc-300 dark:hover:bg-[#475569] transition text-sm font-bold">
+<span class="material-symbols-outlined text-lg">download</span>
+<span>Guide</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="flex flex-col justify-center gap-1 rounded-2xl border border-zinc-200 dark:border-[#334155] bg-white dark:bg-[#1e293b] p-5 shadow-sm">
+<div class="flex items-center justify-between">
+<p class="text-slate-500 dark:text-[#94a3b8] text-sm font-medium">Current GPA</p>
+<span class="material-symbols-outlined text-primary">school</span>
+</div>
+<p class="text-4xl font-black text-slate-900 dark:text-white tracking-tight">3.55</p>
+<div class="w-full bg-zinc-100 dark:bg-zinc-800 h-1.5 rounded-full mt-2 overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 88%"></div>
+</div>
+</div>
+<div class="flex flex-col justify-center gap-1 rounded-2xl border border-zinc-200 dark:border-[#334155] bg-white dark:bg-[#1e293b] p-5 shadow-sm">
+<div class="flex items-center justify-between">
+<p class="text-slate-500 dark:text-[#94a3b8] text-sm font-medium">Max SKS Limit</p>
+<span class="material-symbols-outlined text-primary">lock_open</span>
+</div>
+<p class="text-4xl font-black text-slate-900 dark:text-white tracking-tight">24</p>
+<p class="text-xs text-slate-400 dark:text-gray-500 mt-2">Based on previous semester performance</p>
+</div>
+<div class="flex flex-col justify-center gap-1 rounded-2xl border border-primary dark:border-primary bg-primary/10 dark:bg-[#1e293b] p-5 shadow-sm relative overflow-hidden">
+<div class="absolute right-0 top-0 p-3 opacity-10">
+<span class="material-symbols-outlined text-8xl text-primary">shopping_cart</span>
+</div>
+<div class="flex items-center justify-between relative z-10">
+<p class="text-slate-600 dark:text-[#94a3b8] text-sm font-medium">Selected SKS</p>
+<span class="material-symbols-outlined text-primary">check_circle</span>
+</div>
+<div class="flex items-baseline gap-2 relative z-10">
+<p class="text-4xl font-black text-slate-900 dark:text-white tracking-tight">18</p>
+<span class="text-lg text-slate-500 dark:text-gray-400 font-bold">/ 24</span>
+</div>
+<div class="w-full bg-zinc-200 dark:bg-zinc-800 h-1.5 rounded-full mt-2 overflow-hidden relative z-10">
+<div class="bg-primary h-full rounded-full" style="width: 75%"></div>
+</div>
+</div>
+</div>
+<div class="flex flex-col lg:flex-row gap-6 lg:gap-8">
+<div class="flex-1 flex flex-col gap-6">
+<div class="flex flex-col sm:flex-row gap-4 bg-white dark:bg-[#1e293b] p-4 rounded-2xl border border-zinc-200 dark:border-[#334155] shadow-sm">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-gray-500">search</span>
+<input class="w-full h-12 pl-12 pr-4 rounded-xl bg-zinc-50 dark:bg-zinc-900 border-none ring-1 ring-zinc-200 dark:ring-zinc-700 focus:ring-2 focus:ring-primary dark:text-white text-sm placeholder-slate-400" placeholder="Search by course name or code..." type="text"/>
+</div>
+<div class="flex gap-2 w-full sm:w-auto">
+<div class="relative min-w-[140px] flex-1 sm:flex-none">
+<select class="w-full h-12 pl-4 pr-10 appearance-none rounded-xl bg-zinc-50 dark:bg-zinc-900 border-none ring-1 ring-zinc-200 dark:ring-zinc-700 focus:ring-2 focus:ring-primary dark:text-white text-sm cursor-pointer">
+<option>All Depts</option>
+<option>CS</option>
+<option>Math</option>
+<option>Design</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-sm">expand_more</span>
+</div>
+<div class="relative min-w-[140px] flex-1 sm:flex-none">
+<select class="w-full h-12 pl-4 pr-10 appearance-none rounded-xl bg-zinc-50 dark:bg-zinc-900 border-none ring-1 ring-zinc-200 dark:ring-zinc-700 focus:ring-2 focus:ring-primary dark:text-white text-sm cursor-pointer">
+<option>All Days</option>
+<option>Monday</option>
+<option>Tuesday</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-sm">expand_more</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<h3 class="text-xl font-bold text-slate-900 dark:text-white px-2">Available Courses</h3>
+<div class="group flex flex-col md:flex-row gap-4 p-5 rounded-2xl bg-white dark:bg-[#1e293b] border border-zinc-200 dark:border-[#334155] hover:border-primary dark:hover:border-primary transition-all shadow-sm">
+<div class="flex flex-col gap-2 flex-1">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-2">
+<span class="px-2.5 py-1 rounded-md bg-zinc-100 dark:bg-[#334155] text-xs font-bold text-slate-600 dark:text-[#94a3b8] uppercase tracking-wider">COMP101</span>
+<span class="px-2.5 py-1 rounded-md bg-blue-100 dark:bg-blue-900/30 text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Lecture</span>
+</div>
+<span class="font-bold text-lg text-slate-900 dark:text-white">4 SKS</span>
+</div>
+<h4 class="text-xl font-bold text-slate-900 dark:text-white">Algoritma &amp; Pemrograman</h4>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-6 mt-1">
+<div class="flex items-center gap-2 text-slate-500 dark:text-gray-400 text-sm">
+<span class="material-symbols-outlined text-lg">person</span>
+                                        Dr. Budi Santoso
+                                    </div>
+<div class="flex items-center gap-2 text-slate-500 dark:text-gray-400 text-sm">
+<span class="material-symbols-outlined text-lg">schedule</span>
+                                        Mon, 08:00 - 11:40
+                                    </div>
+<div class="flex items-center gap-2 text-slate-500 dark:text-gray-400 text-sm">
+<span class="material-symbols-outlined text-lg">location_on</span>
+                                        Room A-102
+                                    </div>
+<div class="flex items-center gap-2 text-slate-500 dark:text-gray-400 text-sm">
+<span class="material-symbols-outlined text-lg">group</span>
+<span class="text-blue-500 font-bold">35</span>/40 Enrolled
+                                    </div>
+</div>
+</div>
+<div class="flex items-center justify-end md:border-l dark:border-[#334155] md:pl-6">
+<button class="w-full md:w-auto h-12 px-6 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-primary dark:hover:bg-primary hover:text-slate-900 font-bold text-sm transition flex items-center justify-center gap-2 group-hover:shadow-lg group-hover:shadow-primary/20">
+<span class="material-symbols-outlined">add</span>
+                                    Add Course
+                                </button>
+</div>
+</div>
+<div class="group flex flex-col md:flex-row gap-4 p-5 rounded-2xl bg-white dark:bg-[#1e293b] border border-zinc-200 dark:border-[#334155] hover:border-primary dark:hover:border-primary transition-all shadow-sm">
+<div class="flex flex-col gap-2 flex-1">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-2">
+<span class="px-2.5 py-1 rounded-md bg-zinc-100 dark:bg-[#334155] text-xs font-bold text-slate-600 dark:text-[#94a3b8] uppercase tracking-wider">COMP205</span>
+<span class="px-2.5 py-1 rounded-md bg-purple-100 dark:bg-purple-900/30 text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider">Lab</span>
+</div>
+<span class="font-bold text-lg text-slate-900 dark:text-white">2 SKS</span>
+</div>
+<h4 class="text-xl font-bold text-slate-900 dark:text-white">Database Systems</h4>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-6 mt-1">
+<div class="flex items-center gap-2 text-slate-500 dark:text-gray-400 text-sm">
+<span class="material-symbols-outlined text-lg">person</span>
+                                        Sarah Wijaya, M.Kom
+                                    </div>
+<div class="flex items-center gap-2 text-slate-500 dark:text-gray-400 text-sm">
+<span class="material-symbols-outlined text-lg">schedule</span>
+                                        Tue, 13:00 - 14:40
+                                    </div>
+<div class="flex items-center gap-2 text-slate-500 dark:text-gray-400 text-sm">
+<span class="material-symbols-outlined text-lg">location_on</span>
+                                        Lab Comp 2
+                                    </div>
+<div class="flex items-center gap-2 text-slate-500 dark:text-gray-400 text-sm">
+<span class="material-symbols-outlined text-lg">group</span>
+<span class="text-blue-500 font-bold">12</span>/20 Enrolled
+                                    </div>
+</div>
+</div>
+<div class="flex items-center justify-end md:border-l dark:border-[#334155] md:pl-6">
+<button class="w-full md:w-auto h-12 px-6 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-primary dark:hover:bg-primary hover:text-slate-900 font-bold text-sm transition flex items-center justify-center gap-2 group-hover:shadow-lg group-hover:shadow-primary/20">
+<span class="material-symbols-outlined">add</span>
+                                    Add Course
+                                </button>
+</div>
+</div>
+<div class="group flex flex-col md:flex-row gap-4 p-5 rounded-2xl bg-white dark:bg-[#1e293b] border border-red-200 dark:border-red-900/30 transition-all opacity-80">
+<div class="flex flex-col gap-2 flex-1">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-2">
+<span class="px-2.5 py-1 rounded-md bg-zinc-100 dark:bg-[#334155] text-xs font-bold text-slate-600 dark:text-[#94a3b8] uppercase tracking-wider">MATH104</span>
+<span class="px-2.5 py-1 rounded-md bg-red-100 dark:bg-red-900/30 text-xs font-bold text-red-600 dark:text-red-400 uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">lock</span> Full
+                                        </span>
+</div>
+<span class="font-bold text-lg text-slate-900 dark:text-white">3 SKS</span>
+</div>
+<h4 class="text-xl font-bold text-slate-900 dark:text-white">Discrete Mathematics</h4>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-6 mt-1">
+<div class="flex items-center gap-2 text-slate-500 dark:text-gray-400 text-sm">
+<span class="material-symbols-outlined text-lg">person</span>
+                                        Prof. Hendra
+                                    </div>
+<div class="flex items-center gap-2 text-slate-500 dark:text-gray-400 text-sm">
+<span class="material-symbols-outlined text-lg">schedule</span>
+                                        Mon, 09:00 - 11:30
+                                    </div>
+<div class="flex items-center gap-2 text-slate-500 dark:text-gray-400 text-sm">
+<span class="material-symbols-outlined text-lg">location_on</span>
+                                        Room B-201
+                                    </div>
+<div class="flex items-center gap-2 text-slate-500 dark:text-gray-400 text-sm">
+<span class="material-symbols-outlined text-lg">group</span>
+<span class="text-red-500 font-bold">40</span>/40 Enrolled
+                                    </div>
+</div>
+</div>
+<div class="flex items-center justify-end md:border-l dark:border-[#334155] md:pl-6">
+<button class="w-full md:w-auto h-12 px-6 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-400 dark:text-zinc-600 font-bold text-sm flex items-center justify-center gap-2 cursor-not-allowed" disabled="">
+<span class="material-symbols-outlined">block</span>
+                                    Class Full
+                                </button>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-center gap-2 pt-4">
+<button class="size-10 flex items-center justify-center rounded-full bg-white dark:bg-[#1e293b] border border-zinc-200 dark:border-[#334155] text-slate-600 dark:text-white hover:bg-zinc-50 dark:hover:bg-[#334155]">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="size-10 flex items-center justify-center rounded-full bg-primary text-slate-900 font-bold">1</button>
+<button class="size-10 flex items-center justify-center rounded-full bg-white dark:bg-[#1e293b] border border-zinc-200 dark:border-[#334155] text-slate-600 dark:text-white hover:bg-zinc-50 dark:hover:bg-[#334155]">2</button>
+<button class="size-10 flex items-center justify-center rounded-full bg-white dark:bg-[#1e293b] border border-zinc-200 dark:border-[#334155] text-slate-600 dark:text-white hover:bg-zinc-50 dark:hover:bg-[#334155]">3</button>
+<button class="size-10 flex items-center justify-center rounded-full bg-white dark:bg-[#1e293b] border border-zinc-200 dark:border-[#334155] text-slate-600 dark:text-white hover:bg-zinc-50 dark:hover:bg-[#334155]">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="lg:w-[360px] flex-none">
+<div class="sticky top-24 flex flex-col gap-4">
+<div class="rounded-2xl border border-zinc-200 dark:border-[#334155] bg-white dark:bg-[#1e293b] p-5 shadow-lg flex flex-col h-full max-h-[calc(100vh-120px)]">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-bold text-slate-900 dark:text-white">My KRS</h3>
+<span class="px-2.5 py-1 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-500 text-xs font-bold">Draft</span>
+</div>
+<div class="flex-1 overflow-y-auto pr-2 space-y-3 custom-scrollbar">
+<div class="p-3 rounded-xl bg-zinc-50 dark:bg-[#0f172a] border border-zinc-200 dark:border-[#334155] relative group">
+<button class="absolute top-2 right-2 text-zinc-400 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined text-lg">close</span>
+</button>
+<div class="pr-6">
+<p class="font-bold text-slate-900 dark:text-white text-sm truncate">Web Programming</p>
+<p class="text-xs text-slate-500 dark:text-[#94a3b8]">COMP202 • 3 SKS</p>
+<div class="flex items-center gap-1 mt-2 text-xs text-slate-500 dark:text-gray-400">
+<span class="material-symbols-outlined text-sm">schedule</span>
+                                            Fri, 08:00
+                                        </div>
+</div>
+</div>
+<div class="p-3 rounded-xl bg-zinc-50 dark:bg-[#0f172a] border border-zinc-200 dark:border-[#334155] relative group">
+<button class="absolute top-2 right-2 text-zinc-400 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined text-lg">close</span>
+</button>
+<div class="pr-6">
+<p class="font-bold text-slate-900 dark:text-white text-sm truncate">Artificial Intelligence</p>
+<p class="text-xs text-slate-500 dark:text-[#94a3b8]">COMP305 • 3 SKS</p>
+<div class="flex items-center gap-1 mt-2 text-xs text-slate-500 dark:text-gray-400">
+<span class="material-symbols-outlined text-sm">schedule</span>
+                                            Thu, 10:00
+                                        </div>
+</div>
+</div>
+<div class="p-3 rounded-xl bg-zinc-50 dark:bg-[#0f172a] border border-zinc-200 dark:border-[#334155] relative group">
+<button class="absolute top-2 right-2 text-zinc-400 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined text-lg">close</span>
+</button>
+<div class="pr-6">
+<p class="font-bold text-slate-900 dark:text-white text-sm truncate">UI/UX Design</p>
+<p class="text-xs text-slate-500 dark:text-[#94a3b8]">DSGN201 • 3 SKS</p>
+<div class="flex items-center gap-1 mt-2 text-xs text-slate-500 dark:text-gray-400">
+<span class="material-symbols-outlined text-sm">schedule</span>
+                                            Wed, 13:00
+                                        </div>
+</div>
+</div>
+<div class="p-3 rounded-xl bg-zinc-50 dark:bg-[#0f172a] border border-zinc-200 dark:border-[#334155] relative group">
+<button class="absolute top-2 right-2 text-zinc-400 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined text-lg">close</span>
+</button>
+<div class="pr-6">
+<p class="font-bold text-slate-900 dark:text-white text-sm truncate">English for Academic</p>
+<p class="text-xs text-slate-500 dark:text-[#94a3b8]">LANG102 • 2 SKS</p>
+<div class="flex items-center gap-1 mt-2 text-xs text-slate-500 dark:text-gray-400">
+<span class="material-symbols-outlined text-sm">schedule</span>
+                                            Mon, 15:00
+                                        </div>
+</div>
+</div>
+<div class="p-3 rounded-xl bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-900/30 relative group">
+<button class="absolute top-2 right-2 text-red-400 hover:text-red-600 transition-colors">
+<span class="material-symbols-outlined text-lg">close</span>
+</button>
+<div class="pr-6">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-red-500 text-sm">warning</span>
+<p class="text-xs font-bold text-red-500">Schedule Conflict</p>
+</div>
+<p class="font-bold text-slate-900 dark:text-white text-sm truncate">Statistics</p>
+<p class="text-xs text-slate-500 dark:text-[#94a3b8]">MATH201 • 3 SKS</p>
+<div class="flex items-center gap-1 mt-2 text-xs text-red-500 font-medium">
+<span class="material-symbols-outlined text-sm">schedule</span>
+                                            Mon, 15:00
+                                        </div>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-zinc-200 dark:border-[#334155]">
+<div class="flex justify-between items-end mb-4">
+<span class="text-sm text-slate-500 dark:text-gray-400">Total SKS</span>
+<span class="text-2xl font-black text-slate-900 dark:text-white">18 <span class="text-sm font-medium text-slate-400">/ 24</span></span>
+</div>
+<div class="grid gap-3">
+<button class="w-full h-12 rounded-full bg-primary text-slate-900 font-bold text-sm hover:brightness-110 transition shadow-lg shadow-primary/25">
+                                        Ajukan KRS
+                                    </button>
+<button class="w-full h-12 rounded-full bg-white dark:bg-[#334155] border border-zinc-200 dark:border-transparent text-slate-900 dark:text-white font-bold text-sm hover:bg-zinc-50 dark:hover:bg-[#475569] transition">
+                                        Simpan Sementara
+                                    </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 animate-bounce">
+<div class="flex items-center gap-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-4 py-3 rounded-full shadow-xl">
+<span class="material-symbols-outlined text-primary dark:text-blue-400">check_circle</span>
+<p class="text-sm font-bold pr-2">Web Programming added successfully</p>
+</div>
+</div>
+</div>
+</body></html>

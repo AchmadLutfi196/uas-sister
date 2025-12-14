@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Users Management - Admin Console</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#3b82f6", // Blue
+                        "background-light": "#f8fafc", // Slate 50
+                        "background-dark": "#0f172a", // Slate 900
+                        "surface-dark": "#1e293b", // Slate 800
+                        "border-dark": "#334155", // Slate 700
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>.dark ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        .dark ::-webkit-scrollbar-track {
+            background: #0f172a; 
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #334155; 
+            border-radius: 4px;
+        }
+        .dark ::-webkit-scrollbar-thumb:hover {
+            background: #3b82f6; 
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#111418] dark:text-white font-display overflow-hidden selection:bg-primary selection:text-white">
+<div class="flex h-screen w-full overflow-hidden">
+<aside class="hidden lg:flex w-72 flex-col border-r border-[#e5e7eb] dark:border-border-dark bg-white dark:bg-background-dark">
+<div class="flex flex-col h-full justify-between p-4">
+<div class="flex flex-col gap-4">
+<div class="flex gap-3 px-2 py-4">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12 border border-border-dark" data-alt="Profile picture of the admin user" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAOjKottZ994dYGrP_eC4gmbdPrr3dS0gcoah7HY01nU162Ns3OSi0xETGTfUXVMgc_nAmPXWyd41OnNN3aQKAHvUCO4QZL1E7QAWTLs7du4G438P1FlOpihJ1IATZk37-BqG0n9xlbGHBmBA1knjyWYFaBS-_CVBmq-URTiTECubRv1E2IzEtL6RmkPliyRAiTT-XObcU8PDi5YhikZVSFnUdQ4YomXMEU6RbuNVqf3BP2AYwRPdEwS-Jhtfis6uHRnmwDp8RO5OrG");'>
+</div>
+<div class="flex flex-col justify-center">
+<h1 class="text-[#111418] dark:text-white text-base font-bold leading-normal">Admin Console</h1>
+<p class="text-[#637588] dark:text-[#94a3b8] text-sm font-normal leading-normal">Academic System</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-3 py-3 rounded-full hover:bg-[#f0f2f4] dark:hover:bg-surface-dark transition-colors group" href="#">
+<span class="material-symbols-outlined text-[#111418] dark:text-[#94a3b8] group-hover:text-primary">dashboard</span>
+<p class="text-[#111418] dark:text-[#94a3b8] group-hover:text-[#111418] dark:group-hover:text-white text-sm font-medium leading-normal">Dashboard</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-full bg-[#eff6ff] dark:bg-[#1e3a8a] text-primary dark:text-white" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+<p class="text-sm font-bold leading-normal">Users Management</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-full hover:bg-[#f0f2f4] dark:hover:bg-surface-dark transition-colors group" href="#">
+<span class="material-symbols-outlined text-[#111418] dark:text-[#94a3b8] group-hover:text-primary">school</span>
+<p class="text-[#111418] dark:text-[#94a3b8] group-hover:text-[#111418] dark:group-hover:text-white text-sm font-medium leading-normal">Courses</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-full hover:bg-[#f0f2f4] dark:hover:bg-surface-dark transition-colors group" href="#">
+<span class="material-symbols-outlined text-[#111418] dark:text-[#94a3b8] group-hover:text-primary">calendar_month</span>
+<p class="text-[#111418] dark:text-[#94a3b8] group-hover:text-[#111418] dark:group-hover:text-white text-sm font-medium leading-normal">Schedule</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-full hover:bg-[#f0f2f4] dark:hover:bg-surface-dark transition-colors group" href="#">
+<span class="material-symbols-outlined text-[#111418] dark:text-[#94a3b8] group-hover:text-primary">settings</span>
+<p class="text-[#111418] dark:text-[#94a3b8] group-hover:text-[#111418] dark:group-hover:text-white text-sm font-medium leading-normal">Settings</p>
+</a>
+</nav>
+</div>
+<div class="flex items-center gap-3 px-3 py-3 rounded-full hover:bg-[#f0f2f4] dark:hover:bg-surface-dark transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-[#111418] dark:text-[#94a3b8] group-hover:text-red-400">logout</span>
+<p class="text-[#111418] dark:text-[#94a3b8] group-hover:text-red-400 text-sm font-medium leading-normal">Sign Out</p>
+</div>
+</div>
+</aside>
+<main class="flex-1 flex flex-col h-full overflow-hidden relative">
+<header class="lg:hidden flex items-center justify-between p-4 border-b border-[#e5e7eb] dark:border-border-dark bg-white dark:bg-background-dark">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-black dark:text-white">menu</span>
+<span class="font-bold text-lg dark:text-white">Academic System</span>
+</div>
+<div class="size-8 rounded-full bg-cover bg-center" data-alt="User avatar small" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDpB0hMxcQ4djVBIIX6e7MZ8YWGAYbIf6ZIsyfyQHwUqyiR3YGvBrPG9ikPbpBMXMZIgUgcxTrmTOUd75POuP9DQ_p70Io19-AZd-2xsv3SFWSujZtXBaRo5pzt-8FnZUmnKRlvflh5VWMVPsIdjiD7jBsVvn-EpcO5qVq7j7T7OnfkL_dYzKKJUNwEkQMlNjpbTb4kGvC5UBTNwpRtYo51hUwMqIK7IeLhkmi4JrtAzba8pVJpal0p6qKXErEcUQPAOG1p9tVpOi3V");'></div>
+</header>
+<div class="flex-1 overflow-y-auto p-4 lg:p-8">
+<div class="max-w-[1200px] mx-auto flex flex-col gap-6">
+<div class="flex items-center gap-2">
+<a class="text-[#637588] dark:text-[#94a3b8] text-sm font-medium hover:text-primary transition-colors" href="#">Home</a>
+<span class="text-[#637588] dark:text-[#94a3b8] text-sm font-medium">/</span>
+<span class="text-[#111418] dark:text-white text-sm font-medium">Users Management</span>
+</div>
+<div class="flex flex-wrap justify-between items-end gap-4">
+<div class="flex flex-col gap-2">
+<h1 class="text-[#111418] dark:text-white text-3xl md:text-4xl font-extrabold tracking-tight">Users Management</h1>
+<p class="text-[#637588] dark:text-[#94a3b8] text-base font-normal">Manage student, lecturer, and staff accounts.</p>
+</div>
+<button class="flex items-center justify-center gap-2 rounded-full h-12 px-6 bg-primary text-white text-sm font-bold shadow-[0_0_20px_rgba(59,130,246,0.3)] hover:bg-blue-600 hover:shadow-[0_0_25px_rgba(59,130,246,0.5)] transition-all">
+<span class="material-symbols-outlined text-[20px]">add</span>
+<span>Add New User</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="flex flex-col justify-between gap-4 rounded-2xl p-6 border border-[#e5e7eb] dark:border-border-dark bg-white dark:bg-surface-dark shadow-sm">
+<div class="flex justify-between items-start">
+<p class="text-[#637588] dark:text-[#94a3b8] text-sm font-medium uppercase tracking-wider">Total Users</p>
+<span class="material-symbols-outlined text-primary/50">group</span>
+</div>
+<div>
+<p class="text-[#111418] dark:text-white text-3xl font-bold">1,240</p>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-primary text-sm">trending_up</span>
+<p class="text-primary text-sm font-medium">+5% from last month</p>
+</div>
+</div>
+</div>
+<div class="flex flex-col justify-between gap-4 rounded-2xl p-6 border border-[#e5e7eb] dark:border-border-dark bg-white dark:bg-surface-dark shadow-sm">
+<div class="flex justify-between items-start">
+<p class="text-[#637588] dark:text-[#94a3b8] text-sm font-medium uppercase tracking-wider">Active Students</p>
+<span class="material-symbols-outlined text-primary/50">school</span>
+</div>
+<div>
+<p class="text-[#111418] dark:text-white text-3xl font-bold">980</p>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-primary text-sm">trending_up</span>
+<p class="text-primary text-sm font-medium">+12% new enrollments</p>
+</div>
+</div>
+</div>
+<div class="flex flex-col justify-between gap-4 rounded-2xl p-6 border border-[#e5e7eb] dark:border-border-dark bg-white dark:bg-surface-dark shadow-sm">
+<div class="flex justify-between items-start">
+<p class="text-[#637588] dark:text-[#94a3b8] text-sm font-medium uppercase tracking-wider">Active Lecturers</p>
+<span class="material-symbols-outlined text-primary/50">cast_for_education</span>
+</div>
+<div>
+<p class="text-[#111418] dark:text-white text-3xl font-bold">120</p>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-primary text-sm">trending_flat</span>
+<p class="text-primary text-sm font-medium">+2% stability</p>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col md:flex-row gap-4 p-1">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-[#637588] dark:text-[#94a3b8]">search</span>
+<input class="w-full h-12 pl-12 pr-4 rounded-xl border border-[#e5e7eb] dark:border-border-dark bg-white dark:bg-surface-dark text-[#111418] dark:text-white placeholder-[#637588] dark:placeholder-[#64748b] focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all" placeholder="Search by name, ID, or email..." type="text"/>
+</div>
+<div class="flex gap-4">
+<div class="relative min-w-[160px]">
+<select class="appearance-none w-full h-12 px-4 rounded-xl border border-[#e5e7eb] dark:border-border-dark bg-white dark:bg-surface-dark text-[#111418] dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all cursor-pointer">
+<option value="">All Roles</option>
+<option value="student">Student</option>
+<option value="lecturer">Lecturer</option>
+<option value="admin">Administrator</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-[#637588] dark:text-[#94a3b8] pointer-events-none">expand_more</span>
+</div>
+<div class="relative min-w-[160px]">
+<select class="appearance-none w-full h-12 px-4 rounded-xl border border-[#e5e7eb] dark:border-border-dark bg-white dark:bg-surface-dark text-[#111418] dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all cursor-pointer">
+<option value="">Any Status</option>
+<option value="active">Active</option>
+<option value="suspended">Suspended</option>
+<option value="pending">Pending</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-[#637588] dark:text-[#94a3b8] pointer-events-none">expand_more</span>
+</div>
+</div>
+</div>
+<div class="rounded-2xl border border-[#e5e7eb] dark:border-border-dark bg-white dark:bg-surface-dark overflow-hidden shadow-sm">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-[#e5e7eb] dark:border-border-dark bg-[#f9fafb] dark:bg-[#1e293b]">
+<th class="p-5 text-xs font-semibold tracking-wide text-[#637588] dark:text-[#94a3b8] uppercase">
+<input class="rounded border-[#e5e7eb] dark:border-[#475569] bg-white dark:bg-[#020617] text-primary focus:ring-offset-0 focus:ring-primary/20" type="checkbox"/>
+</th>
+<th class="p-5 text-xs font-semibold tracking-wide text-[#637588] dark:text-[#94a3b8] uppercase">User</th>
+<th class="p-5 text-xs font-semibold tracking-wide text-[#637588] dark:text-[#94a3b8] uppercase">Role</th>
+<th class="p-5 text-xs font-semibold tracking-wide text-[#637588] dark:text-[#94a3b8] uppercase">Department</th>
+<th class="p-5 text-xs font-semibold tracking-wide text-[#637588] dark:text-[#94a3b8] uppercase">Status</th>
+<th class="p-5 text-xs font-semibold tracking-wide text-[#637588] dark:text-[#94a3b8] uppercase text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#e5e7eb] dark:divide-border-dark">
+<tr class="group hover:bg-[#f0f2f4] dark:hover:bg-[#334155] transition-colors">
+<td class="p-5 w-10">
+<input class="rounded border-[#e5e7eb] dark:border-[#475569] bg-white dark:bg-[#020617] text-primary focus:ring-offset-0 focus:ring-primary/20" type="checkbox"/>
+</td>
+<td class="p-5">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-cover bg-center shrink-0" data-alt="Portrait of Sarah Jenkins" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCP5Bngh_SYQ3xHDJw7cxhX9H7mGXRdKESBajJGqS-mHS3KR86-TE4hSKDKxCq4BZ7ugKPFcZswIqyj0GG0kRVkI4xfarPRrBmK_sbnEPoK62LZU2JeQEOFXEbCgNPuOW5g1tNffsVHblge6nt561OgusyS6Y6x9YirGBcIciTzVGS45E3qVhr4vmO3gBDrCU7aFF84IJ7K0tvXP-2gnJ8y6hjT0yaA9i40LjRC5Lcv4-0yaEURvT5vzto2uxi3rJJIZNSf9o6jaS6t");'></div>
+<div class="flex flex-col">
+<span class="text-[#111418] dark:text-white font-bold text-sm">Sarah Jenkins</span>
+<span class="text-[#637588] dark:text-[#94a3b8] text-xs">ID: 20230012</span>
+</div>
+</div>
+</td>
+<td class="p-5">
+<span class="text-[#111418] dark:text-gray-200 text-sm font-medium">Lecturer</span>
+</td>
+<td class="p-5">
+<span class="text-[#111418] dark:text-gray-200 text-sm">Computer Science</span>
+</td>
+<td class="p-5">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-primary/20 bg-primary/10">
+<div class="size-1.5 rounded-full bg-primary"></div>
+<span class="text-xs font-bold text-primary">Active</span>
+</div>
+</td>
+<td class="p-5 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="p-2 rounded-full text-[#637588] dark:text-[#94a3b8] hover:bg-white dark:hover:bg-[#475569] hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-2 rounded-full text-[#637588] dark:text-[#94a3b8] hover:bg-white dark:hover:bg-[#475569] hover:text-red-400 transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="group hover:bg-[#f0f2f4] dark:hover:bg-[#334155] transition-colors">
+<td class="p-5 w-10">
+<input class="rounded border-[#e5e7eb] dark:border-[#475569] bg-white dark:bg-[#020617] text-primary focus:ring-offset-0 focus:ring-primary/20" type="checkbox"/>
+</td>
+<td class="p-5">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-cover bg-center shrink-0" data-alt="Portrait of Marcus Chen" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA68dm-bPB1S2etNKT5tqCXlMQJNX3gZfEGa01MnQCTkDg-3-BwG-hKAi9e80rlaY51pz6W_IyF1VMijv60NgBQa__QsLAiVsWsDW4wFRyP3IRdRZppO9bfUmXrWQiueg9irL3I_gXZlWcjfF2jsqte06kKIPoyA4uVD06QFzuuMLMeJAMdDkbZAux396QxWv97D5dyshC0RvLel4XMmcMRJrruAcU36_2EAj0fndOQhFQbjAYixqHs8Q7MaYXOAnu3VcRCNuFFKOMm");'></div>
+<div class="flex flex-col">
+<span class="text-[#111418] dark:text-white font-bold text-sm">Marcus Chen</span>
+<span class="text-[#637588] dark:text-[#94a3b8] text-xs">ID: 20230045</span>
+</div>
+</div>
+</td>
+<td class="p-5">
+<span class="text-[#111418] dark:text-gray-200 text-sm font-medium">Student</span>
+</td>
+<td class="p-5">
+<span class="text-[#111418] dark:text-gray-200 text-sm">Engineering</span>
+</td>
+<td class="p-5">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-primary/20 bg-primary/10">
+<div class="size-1.5 rounded-full bg-primary"></div>
+<span class="text-xs font-bold text-primary">Active</span>
+</div>
+</td>
+<td class="p-5 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="p-2 rounded-full text-[#637588] dark:text-[#94a3b8] hover:bg-white dark:hover:bg-[#475569] hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-2 rounded-full text-[#637588] dark:text-[#94a3b8] hover:bg-white dark:hover:bg-[#475569] hover:text-red-400 transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="group hover:bg-[#f0f2f4] dark:hover:bg-[#334155] transition-colors">
+<td class="p-5 w-10">
+<input class="rounded border-[#e5e7eb] dark:border-[#475569] bg-white dark:bg-[#020617] text-primary focus:ring-offset-0 focus:ring-primary/20" type="checkbox"/>
+</td>
+<td class="p-5">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-cover bg-center shrink-0" data-alt="Portrait of Elena Rodriguez" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDpwABwh-h0Fv8UlAypGH4EwAgVHnvKhQS_7kqbjJkup1dDA1S_2dcZS-HxkuZyvgjNZ11rnNTrji2mO3R5he8RbWxq3sK9Lo8GcRu1SrR2O1DTuSEP3LmRNk81rv2_b-Z_trqfZOEpk8__2Z6kRFxrKKvdyv9EKFRfDtEwIA4V7QbXaSWCR4rbImHro0-ig3TjWbxBT5hIEUNjYfZZCoykwpeVcQFKpbHRWWa8yWOH2eUtGr8Aybrf96Az5t_N79XG7pHpdt3pL1oN");'></div>
+<div class="flex flex-col">
+<span class="text-[#111418] dark:text-white font-bold text-sm">Elena Rodriguez</span>
+<span class="text-[#637588] dark:text-[#94a3b8] text-xs">ID: 20230089</span>
+</div>
+</div>
+</td>
+<td class="p-5">
+<span class="text-[#111418] dark:text-gray-200 text-sm font-medium">Student</span>
+</td>
+<td class="p-5">
+<span class="text-[#111418] dark:text-gray-200 text-sm">Mathematics</span>
+</td>
+<td class="p-5">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-yellow-500/30 bg-yellow-500/10">
+<div class="size-1.5 rounded-full bg-yellow-500"></div>
+<span class="text-xs font-bold text-yellow-500">Pending</span>
+</div>
+</td>
+<td class="p-5 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="p-2 rounded-full text-[#637588] dark:text-[#94a3b8] hover:bg-white dark:hover:bg-[#475569] hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-2 rounded-full text-[#637588] dark:text-[#94a3b8] hover:bg-white dark:hover:bg-[#475569] hover:text-red-400 transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="group hover:bg-[#f0f2f4] dark:hover:bg-[#334155] transition-colors">
+<td class="p-5 w-10">
+<input class="rounded border-[#e5e7eb] dark:border-[#475569] bg-white dark:bg-[#020617] text-primary focus:ring-offset-0 focus:ring-primary/20" type="checkbox"/>
+</td>
+<td class="p-5">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-cover bg-center shrink-0" data-alt="Portrait of David Kim" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDmDqeS0Xj4CQe_jjImTVVEAWPNnBNAqH_G5iH33aFsQvhy-7RsuTIRbKoJbbQDqarfIO5Us1QBzbHRtmfdnVjqDiuJwzSL6e3zGkVxLAWS7wR0PKCg_1ztzPOczovgBlvMXRrIPCrUVn1Bp8IJIaB1_PuWCAHfGQuc-B7CNap7HQdkgxB76G4Nbtk6RQmgfay5ZQiZeWKWYfimORJ3mPdzEUJ1BkVnaNHCSZgeoh9bH9Y3O3WHeRsSwMrDilWgKhUwgvPcZw83HQbW");'></div>
+<div class="flex flex-col">
+<span class="text-[#111418] dark:text-white font-bold text-sm">David Kim</span>
+<span class="text-[#637588] dark:text-[#94a3b8] text-xs">ID: ADM-004</span>
+</div>
+</div>
+</td>
+<td class="p-5">
+<span class="text-[#111418] dark:text-gray-200 text-sm font-medium">Administrator</span>
+</td>
+<td class="p-5">
+<span class="text-[#111418] dark:text-gray-200 text-sm">IT Services</span>
+</td>
+<td class="p-5">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-primary/20 bg-primary/10">
+<div class="size-1.5 rounded-full bg-primary"></div>
+<span class="text-xs font-bold text-primary">Active</span>
+</div>
+</td>
+<td class="p-5 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="p-2 rounded-full text-[#637588] dark:text-[#94a3b8] hover:bg-white dark:hover:bg-[#475569] hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-2 rounded-full text-[#637588] dark:text-[#94a3b8] hover:bg-white dark:hover:bg-[#475569] hover:text-red-400 transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="group hover:bg-[#f0f2f4] dark:hover:bg-[#334155] transition-colors">
+<td class="p-5 w-10">
+<input class="rounded border-[#e5e7eb] dark:border-[#475569] bg-white dark:bg-[#020617] text-primary focus:ring-offset-0 focus:ring-primary/20" type="checkbox"/>
+</td>
+<td class="p-5">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-cover bg-center shrink-0" data-alt="Portrait of Amanda Lewis" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBEp0pRceJV6JS8IejsSC_5vqS4irYdS4I-oPmoVUGrpmvz-YX_FmGDZ-UCtFi1UWFe1UkkelxPCjCrQWROL4kalQqxI3SX_rIuw-Qf3XQVM3JCbdkU3_CJDfHwv6eadamccbYlgzMMZkywQE-JwBdnu7zoeJwjV1vH1MAsWpRuVEvEc8YcHY9hhQN2hmGO4HgBaacQI-tEm4lbblyKFq3KklFK9OZBLzKBB5ZzL6oSy1hWfOR_Hosv_Ub324XAKAB5QSCY7v1zPHmp");'></div>
+<div class="flex flex-col">
+<span class="text-[#111418] dark:text-white font-bold text-sm">Amanda Lewis</span>
+<span class="text-[#637588] dark:text-[#94a3b8] text-xs">ID: 20230156</span>
+</div>
+</div>
+</td>
+<td class="p-5">
+<span class="text-[#111418] dark:text-gray-200 text-sm font-medium">Student</span>
+</td>
+<td class="p-5">
+<span class="text-[#111418] dark:text-gray-200 text-sm">Physics</span>
+</td>
+<td class="p-5">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-red-500/30 bg-red-500/10">
+<div class="size-1.5 rounded-full bg-red-500"></div>
+<span class="text-xs font-bold text-red-500">Suspended</span>
+</div>
+</td>
+<td class="p-5 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="p-2 rounded-full text-[#637588] dark:text-[#94a3b8] hover:bg-white dark:hover:bg-[#475569] hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-2 rounded-full text-[#637588] dark:text-[#94a3b8] hover:bg-white dark:hover:bg-[#475569] hover:text-red-400 transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="flex items-center justify-between p-4 border-t border-[#e5e7eb] dark:border-border-dark bg-white dark:bg-surface-dark">
+<span class="text-sm text-[#637588] dark:text-[#94a3b8]">Showing <span class="font-bold text-[#111418] dark:text-white">1-5</span> of <span class="font-bold text-[#111418] dark:text-white">124</span></span>
+<div class="flex gap-2">
+<button class="px-3 py-1.5 rounded-lg border border-[#e5e7eb] dark:border-border-dark text-sm font-medium text-[#637588] dark:text-[#94a3b8] hover:bg-[#f0f2f4] dark:hover:bg-[#334155] disabled:opacity-50">Previous</button>
+<button class="px-3 py-1.5 rounded-lg bg-primary text-white text-sm font-bold shadow-sm hover:bg-blue-400">1</button>
+<button class="px-3 py-1.5 rounded-lg border border-[#e5e7eb] dark:border-border-dark text-sm font-medium text-[#637588] dark:text-[#94a3b8] hover:bg-[#f0f2f4] dark:hover:bg-[#334155]">2</button>
+<button class="px-3 py-1.5 rounded-lg border border-[#e5e7eb] dark:border-border-dark text-sm font-medium text-[#637588] dark:text-[#94a3b8] hover:bg-[#f0f2f4] dark:hover:bg-[#334155]">3</button>
+<span class="px-2 py-1.5 text-[#637588] dark:text-[#94a3b8]">...</span>
+<button class="px-3 py-1.5 rounded-lg border border-[#e5e7eb] dark:border-border-dark text-sm font-medium text-[#637588] dark:text-[#94a3b8] hover:bg-[#f0f2f4] dark:hover:bg-[#334155]">Next</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>

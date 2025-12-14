@@ -1,31 +1,43 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
 
 /* =========================================
    DARK THEME (Default)
    ========================================= */
 :root {
-  /* Color Palette */
-  --gradient-primary: linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #c084fc 100%);
-  --gradient-bg: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #0f0f1a 100%);
-  --shadow-glow: 0 0 40px rgba(139, 92, 246, 0.3);
+  /* New Design System Colors - Blue Theme */
+  --primary: #3b82f6;
+  --primary-hover: #2563eb;
+  --primary-light: #eff6ff;
+  --background-dark: #0f172a;
+  --surface-dark: #1e293b;
+  --surface-highlight: #334155;
+  --border-dark: #334155;
+  --text-secondary-slate: #94a3b8;
+  
+  /* Color Palette - Legacy */
+  --gradient-primary: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%);
+  --gradient-bg: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+  --shadow-glow: 0 0 40px rgba(59, 130, 246, 0.3);
 
   /* Background Colors */
-  --bg-primary: #0f0f1a;
-  --bg-secondary: rgba(20, 20, 35, 0.95);
-  --bg-navbar: rgba(15, 15, 26, 0.85);
-  --bg-card: rgba(25, 25, 45, 0.9);
-  --bg-card-hover: rgba(30, 30, 50, 0.95);
+  --bg-primary: #0f172a;
+  --bg-secondary: rgba(30, 41, 59, 0.95);
+  --bg-navbar: rgba(15, 23, 42, 0.85);
+  --bg-card: rgba(30, 41, 59, 0.9);
+  --bg-card-hover: rgba(51, 65, 85, 0.95);
 
   /* Border Colors */
   --border-color: rgba(255, 255, 255, 0.08);
-  --border-color-hover: rgba(139, 92, 246, 0.3);
+  --border-color-hover: rgba(59, 130, 246, 0.3);
 
   /* Text Colors - DARK THEME */
   --text-primary: #ffffff;
-  --text-secondary: #b0b0c0;
-  --text-muted: #7a7a8a;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
   --text-heading: #ffffff;
-  --text-body: #e0e0e8;
+  --text-body: #e2e8f0;
 
   /* Scrollbar */
   --scrollbar-track: #1a1a2e;

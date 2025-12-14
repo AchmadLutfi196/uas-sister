@@ -1,37 +1,56 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
-    Text,
     TextInput,
     PasswordInput,
-    Button,
-    Stack,
-    SegmentedControl,
-    Box,
-    Anchor,
     LoadingOverlay,
     Alert,
     Select,
-    SimpleGrid,
 } from '@mantine/core'
 import { DateInput } from '@mantine/dates'
 import { useForm } from '@mantine/form'
 import Swal from 'sweetalert2'
-import {
-    IconUser,
-    IconLock,
-    IconId,
-    IconMail,
-    IconAlertCircle,
-    IconCalendar,
-    IconSchool,
-    IconBuilding,
-} from '@tabler/icons-react'
+import { IconAlertCircle } from '@tabler/icons-react'
 import { authService } from '../../services'
 import type { Gender } from '../../types'
 import styles from './LoginPage.module.css'
 
 type RegisterType = 'STUDENT' | 'TEACHER'
+
+const inputStyles = {
+    input: {
+        background: '#1e293b',
+        border: '1px solid #334155',
+        color: 'white',
+        '&::placeholder': {
+            color: '#64748b',
+        },
+        '&:focus': {
+            borderColor: '#3b82f6',
+        },
+    },
+}
+
+const selectStyles = {
+    input: {
+        background: '#1e293b',
+        border: '1px solid #334155',
+        color: 'white',
+    },
+    dropdown: {
+        background: '#1e293b',
+        border: '1px solid #334155',
+    },
+    option: {
+        color: 'white',
+        '&[data-selected]': {
+            background: '#3b82f6',
+        },
+        '&:hover': {
+            background: '#334155',
+        },
+    },
+}
 
 export function RegisterPage() {
     const navigate = useNavigate()
@@ -86,7 +105,6 @@ export function RegisterPage() {
         setError(null)
         setIsLoading(true)
         try {
-            // Format tanggal lahir
             let formattedDate = ''
             if (values.tanggalLahir) {
                 if (values.tanggalLahir instanceof Date) {
@@ -107,7 +125,7 @@ export function RegisterPage() {
                 title: 'Registrasi Berhasil!',
                 text: 'Akun mahasiswa berhasil dibuat. Silakan login dengan akun baru Anda.',
                 confirmButtonText: 'Login Sekarang',
-                confirmButtonColor: '#8b5cf6',
+                confirmButtonColor: '#3b82f6',
             })
 
             navigate('/login')
@@ -120,7 +138,7 @@ export function RegisterPage() {
                 title: 'Registrasi Gagal',
                 text: message,
                 confirmButtonText: 'Tutup',
-                confirmButtonColor: '#8b5cf6',
+                confirmButtonColor: '#3b82f6',
             })
         } finally {
             setIsLoading(false)
@@ -131,7 +149,6 @@ export function RegisterPage() {
         setError(null)
         setIsLoading(true)
         try {
-            // Format tanggal lahir
             let formattedDate: string | undefined = undefined
             if (values.tanggalLahir) {
                 if (values.tanggalLahir instanceof Date) {
@@ -152,7 +169,7 @@ export function RegisterPage() {
                 title: 'Registrasi Berhasil!',
                 text: 'Akun dosen berhasil dibuat. Silakan login dengan akun baru Anda.',
                 confirmButtonText: 'Login Sekarang',
-                confirmButtonColor: '#8b5cf6',
+                confirmButtonColor: '#3b82f6',
             })
 
             navigate('/login')
@@ -165,95 +182,98 @@ export function RegisterPage() {
                 title: 'Registrasi Gagal',
                 text: message,
                 confirmButtonText: 'Tutup',
-                confirmButtonColor: '#8b5cf6',
+                confirmButtonColor: '#3b82f6',
             })
         } finally {
             setIsLoading(false)
         }
     }
 
-    // Theme-aware input styles
-    const inputStyles = {
-        input: {
-            backgroundColor: 'var(--bg-card)',
-            borderColor: 'var(--border-color)',
-            color: 'var(--text-primary)',
-            transition: 'all 0.2s ease',
-            '&::placeholder': {
-                color: 'var(--text-muted)',
-            },
-            '&:focus': {
-                borderColor: '#8b5cf6',
-                boxShadow: '0 0 0 2px rgba(139, 92, 246, 0.2)',
-            },
-        },
-        label: {
-            color: 'var(--text-primary)',
-            fontWeight: 500,
-        },
-    }
-
     return (
-        <Box className={styles.pageWrapper}>
+        <div className={styles.pageWrapper}>
             <div className={styles.splitContainer}>
-                {/* Left Side - Illustration */}
-                <div className={styles.illustrationSide}>
-                    <div className={styles.illustrationContent}>
-                        <img
-                            src="/register.svg"
-                            alt="Register Illustration"
-                            className={styles.illustrationImage}
-                        />
-                        <h2 className={styles.illustrationTitle}>Bergabung Sekarang</h2>
-                        <p className={styles.illustrationSubtitle}>
-                            Daftarkan diri Anda untuk mengakses layanan
-                            akademik lengkap dalam satu platform
+                {/* Left Side - Hero Image */}
+                <div className={styles.heroSide}>
+                    <div className={styles.heroOverlay}></div>
+                    <div className={styles.heroContent}>
+                        <div className={styles.statusBadge}>
+                            <span className={styles.statusDot}></span>
+                            <span>Pendaftaran Dibuka</span>
+                        </div>
+                        <h1 className={styles.heroTitle}>
+                            Bergabung dengan <span className={styles.primaryText}>Komunitas Akademik</span>
+                        </h1>
+                        <p className={styles.heroDescription}>
+                            Daftarkan diri Anda untuk mengakses layanan akademik lengkap dalam satu platform terpadu.
                         </p>
+                        <div className={styles.socialProof}>
+                            <div className={styles.avatarStack}>
+                                <div className={styles.avatar} style={{ backgroundImage: 'url(https://i.pravatar.cc/100?img=4)' }}></div>
+                                <div className={styles.avatar} style={{ backgroundImage: 'url(https://i.pravatar.cc/100?img=5)' }}></div>
+                                <div className={styles.avatar} style={{ backgroundImage: 'url(https://i.pravatar.cc/100?img=6)' }}></div>
+                                <div className={styles.avatarCount}>+5K</div>
+                            </div>
+                            <span className={styles.socialText}>
+                                <span className={styles.highlight}>5,000+</span> pengguna aktif
+                            </span>
+                        </div>
                     </div>
                 </div>
 
                 {/* Right Side - Form */}
                 <div className={styles.formSide}>
-                    <div className={styles.formContainer} style={{ maxWidth: '480px' }}>
-                        <div className={styles.logoSection}>
-                            <h1 className={styles.logoTitle}>SISTER</h1>
-                            <p className={styles.logoSubtitle}>Sistem Informasi Akademik</p>
-                        </div>
+                    {/* Mobile Logo */}
+                    <div className={styles.mobileLogo}>
+                        SISTER<span className={styles.primaryText}>.</span>
+                    </div>
 
-                        <div className={styles.formCard}>
+                    <div className={styles.formContainer}>
+                        <div className={styles.formContent}>
                             <LoadingOverlay visible={isLoading} overlayProps={{ blur: 2 }} />
+                            
+                            <div className={styles.formHeader}>
+                                <h2 className={styles.formTitle}>Buat Akun Baru</h2>
+                                <p className={styles.formSubtitle}>Lengkapi data diri Anda untuk mendaftar.</p>
+                            </div>
 
-                            <h2 className={styles.formTitle}>Daftar Akun Baru</h2>
+                            {/* Role Toggle */}
+                            <div className={styles.roleToggle}>
+                                <label className={styles.roleOption}>
+                                    <input 
+                                        type="radio" 
+                                        name="role" 
+                                        value="STUDENT" 
+                                        checked={userType === 'STUDENT'}
+                                        onChange={() => { setUserType('STUDENT'); setError(null) }}
+                                    />
+                                    <div className={styles.roleLabel}>Mahasiswa</div>
+                                </label>
+                                <label className={styles.roleOption}>
+                                    <input 
+                                        type="radio" 
+                                        name="role" 
+                                        value="TEACHER" 
+                                        checked={userType === 'TEACHER'}
+                                        onChange={() => { setUserType('TEACHER'); setError(null) }}
+                                    />
+                                    <div className={styles.roleLabel}>Dosen</div>
+                                </label>
+                            </div>
 
-                            <SegmentedControl
-                                fullWidth
-                                value={userType}
-                                onChange={(value) => {
-                                    setUserType(value as RegisterType)
-                                    setError(null)
-                                }}
-                                data={[
-                                    { label: 'Mahasiswa', value: 'STUDENT' },
-                                    { label: 'Dosen', value: 'TEACHER' },
-                                ]}
-                                mb="lg"
-                                radius="xl"
-                                styles={{
-                                    root: {
-                                        backgroundColor: 'var(--glass-bg)',
-                                        border: '1px solid var(--border-color)',
-                                    },
-                                    label: {
-                                        color: 'var(--text-primary)',
-                                        fontWeight: 500,
-                                        transition: 'color 0.2s ease',
-                                    },
-                                    indicator: {
-                                        background: 'linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%)',
-                                        boxShadow: '0 2px 8px rgba(139, 92, 246, 0.3)',
-                                    },
-                                }}
-                            />
+                            {/* Tab Navigation */}
+                            <div className={styles.tabNav}>
+                                <button 
+                                    className={styles.tabButton}
+                                    onClick={() => navigate('/login')}
+                                >
+                                    Masuk
+                                </button>
+                                <button 
+                                    className={`${styles.tabButton} ${styles.tabActive}`}
+                                >
+                                    Daftar
+                                </button>
+                            </div>
 
                             {error && (
                                 <Alert icon={<IconAlertCircle size={16} />} color="red" mb="md" variant="light" radius="md">
@@ -262,47 +282,55 @@ export function RegisterPage() {
                             )}
 
                             {userType === 'STUDENT' ? (
-                                <form onSubmit={studentForm.onSubmit(handleStudentSubmit)}>
-                                    <Stack gap="sm">
+                                <form onSubmit={studentForm.onSubmit(handleStudentSubmit)} className={styles.form}>
+                                    <div className={styles.inputGroup}>
+                                        <label className={styles.inputLabel}>Nama Lengkap</label>
                                         <TextInput
-                                            label="Nama Lengkap"
                                             placeholder="Masukkan nama lengkap"
-                                            leftSection={<IconUser size={18} />}
                                             {...studentForm.getInputProps('name')}
                                             radius="xl"
+                                            size="md"
                                             styles={inputStyles}
                                         />
+                                    </div>
 
-                                        <SimpleGrid cols={2}>
+                                    <div className={styles.inputRow}>
+                                        <div className={styles.inputGroup}>
+                                            <label className={styles.inputLabel}>NIM</label>
                                             <TextInput
-                                                label="NIM"
-                                                placeholder="Masukkan NIM"
-                                                leftSection={<IconId size={18} />}
+                                                placeholder="12345678"
                                                 {...studentForm.getInputProps('nim')}
                                                 radius="xl"
+                                                size="md"
                                                 styles={inputStyles}
                                             />
+                                        </div>
+                                        <div className={styles.inputGroup}>
+                                            <label className={styles.inputLabel}>Email</label>
                                             <TextInput
-                                                label="Email"
                                                 placeholder="email@example.com"
-                                                leftSection={<IconMail size={18} />}
                                                 {...studentForm.getInputProps('email')}
                                                 radius="xl"
+                                                size="md"
                                                 styles={inputStyles}
                                             />
-                                        </SimpleGrid>
+                                        </div>
+                                    </div>
 
-                                        <SimpleGrid cols={2}>
+                                    <div className={styles.inputRow}>
+                                        <div className={styles.inputGroup}>
+                                            <label className={styles.inputLabel}>Tanggal Lahir</label>
                                             <DateInput
-                                                label="Tanggal Lahir"
                                                 placeholder="Pilih tanggal"
-                                                leftSection={<IconCalendar size={18} />}
                                                 {...studentForm.getInputProps('tanggalLahir')}
                                                 radius="xl"
+                                                size="md"
                                                 styles={inputStyles}
                                             />
+                                        </div>
+                                        <div className={styles.inputGroup}>
+                                            <label className={styles.inputLabel}>Jenis Kelamin</label>
                                             <Select
-                                                label="Jenis Kelamin"
                                                 placeholder="Pilih"
                                                 data={[
                                                     { value: 'MAN', label: 'Laki-laki' },
@@ -310,92 +338,105 @@ export function RegisterPage() {
                                                 ]}
                                                 {...studentForm.getInputProps('gender')}
                                                 radius="xl"
-                                                styles={inputStyles}
+                                                size="md"
+                                                styles={selectStyles}
                                             />
-                                        </SimpleGrid>
+                                        </div>
+                                    </div>
 
-                                        <SimpleGrid cols={2}>
+                                    <div className={styles.inputRow}>
+                                        <div className={styles.inputGroup}>
+                                            <label className={styles.inputLabel}>Program Studi</label>
                                             <TextInput
-                                                label="Program Studi"
                                                 placeholder="Teknik Informatika"
-                                                leftSection={<IconSchool size={18} />}
                                                 {...studentForm.getInputProps('programStudi')}
                                                 radius="xl"
+                                                size="md"
                                                 styles={inputStyles}
                                             />
+                                        </div>
+                                        <div className={styles.inputGroup}>
+                                            <label className={styles.inputLabel}>Fakultas</label>
                                             <TextInput
-                                                label="Fakultas"
                                                 placeholder="Fakultas Teknik"
-                                                leftSection={<IconBuilding size={18} />}
                                                 {...studentForm.getInputProps('fakultas')}
                                                 radius="xl"
+                                                size="md"
                                                 styles={inputStyles}
                                             />
-                                        </SimpleGrid>
+                                        </div>
+                                    </div>
 
+                                    <div className={styles.inputGroup}>
+                                        <label className={styles.inputLabel}>Kata Sandi</label>
                                         <PasswordInput
-                                            label="Password"
                                             placeholder="Minimal 6 karakter"
-                                            leftSection={<IconLock size={18} />}
                                             {...studentForm.getInputProps('password')}
                                             radius="xl"
-                                            styles={inputStyles}
-                                        />
-
-                                        <Button
-                                            type="submit"
-                                            fullWidth
                                             size="md"
-                                            radius="xl"
-                                            className={styles.submitButton}
-                                            mt="xs"
-                                        >
-                                            Daftar sebagai Mahasiswa
-                                        </Button>
-                                    </Stack>
+                                            styles={{
+                                                ...inputStyles,
+                                                innerInput: {
+                                                    color: 'white',
+                                                },
+                                            }}
+                                        />
+                                    </div>
+
+                                    <button type="submit" className={styles.submitButton}>
+                                        Daftar sebagai Mahasiswa
+                                    </button>
                                 </form>
                             ) : (
-                                <form onSubmit={teacherForm.onSubmit(handleTeacherSubmit)}>
-                                    <Stack gap="sm">
+                                <form onSubmit={teacherForm.onSubmit(handleTeacherSubmit)} className={styles.form}>
+                                    <div className={styles.inputGroup}>
+                                        <label className={styles.inputLabel}>Nama Lengkap</label>
                                         <TextInput
-                                            label="Nama Lengkap"
                                             placeholder="Masukkan nama lengkap"
-                                            leftSection={<IconUser size={18} />}
                                             {...teacherForm.getInputProps('name')}
                                             radius="xl"
+                                            size="md"
                                             styles={inputStyles}
                                         />
+                                    </div>
 
-                                        <SimpleGrid cols={2}>
+                                    <div className={styles.inputRow}>
+                                        <div className={styles.inputGroup}>
+                                            <label className={styles.inputLabel}>NIP</label>
                                             <TextInput
-                                                label="NIP"
                                                 placeholder="Masukkan NIP"
-                                                leftSection={<IconId size={18} />}
                                                 {...teacherForm.getInputProps('nip')}
                                                 radius="xl"
+                                                size="md"
                                                 styles={inputStyles}
                                             />
+                                        </div>
+                                        <div className={styles.inputGroup}>
+                                            <label className={styles.inputLabel}>Email</label>
                                             <TextInput
-                                                label="Email"
                                                 placeholder="email@example.com"
-                                                leftSection={<IconMail size={18} />}
                                                 {...teacherForm.getInputProps('email')}
                                                 radius="xl"
+                                                size="md"
                                                 styles={inputStyles}
                                             />
-                                        </SimpleGrid>
+                                        </div>
+                                    </div>
 
-                                        <SimpleGrid cols={2}>
+                                    <div className={styles.inputRow}>
+                                        <div className={styles.inputGroup}>
+                                            <label className={styles.inputLabel}>Tanggal Lahir</label>
                                             <DateInput
-                                                label="Tanggal Lahir"
                                                 placeholder="Pilih tanggal"
-                                                leftSection={<IconCalendar size={18} />}
                                                 {...teacherForm.getInputProps('tanggalLahir')}
                                                 radius="xl"
+                                                size="md"
                                                 styles={inputStyles}
                                             />
+                                        </div>
+                                        <div className={styles.inputGroup}>
+                                            <label className={styles.inputLabel}>Jenis Kelamin</label>
                                             <Select
-                                                label="Jenis Kelamin"
                                                 placeholder="Pilih"
                                                 data={[
                                                     { value: 'MAN', label: 'Laki-laki' },
@@ -403,58 +444,60 @@ export function RegisterPage() {
                                                 ]}
                                                 {...teacherForm.getInputProps('gender')}
                                                 radius="xl"
-                                                styles={inputStyles}
+                                                size="md"
+                                                styles={selectStyles}
                                             />
-                                        </SimpleGrid>
+                                        </div>
+                                    </div>
 
+                                    <div className={styles.inputGroup}>
+                                        <label className={styles.inputLabel}>Fakultas</label>
                                         <TextInput
-                                            label="Fakultas"
                                             placeholder="Fakultas Teknik"
-                                            leftSection={<IconBuilding size={18} />}
                                             {...teacherForm.getInputProps('fakultas')}
                                             radius="xl"
+                                            size="md"
                                             styles={inputStyles}
                                         />
+                                    </div>
 
+                                    <div className={styles.inputGroup}>
+                                        <label className={styles.inputLabel}>Kata Sandi</label>
                                         <PasswordInput
-                                            label="Password"
                                             placeholder="Minimal 6 karakter"
-                                            leftSection={<IconLock size={18} />}
                                             {...teacherForm.getInputProps('password')}
                                             radius="xl"
-                                            styles={inputStyles}
-                                        />
-
-                                        <Button
-                                            type="submit"
-                                            fullWidth
                                             size="md"
-                                            radius="xl"
-                                            className={styles.submitButton}
-                                            mt="xs"
-                                        >
-                                            Daftar sebagai Dosen
-                                        </Button>
-                                    </Stack>
+                                            styles={{
+                                                ...inputStyles,
+                                                innerInput: {
+                                                    color: 'white',
+                                                },
+                                            }}
+                                        />
+                                    </div>
+
+                                    <button type="submit" className={styles.submitButton}>
+                                        Daftar sebagai Dosen
+                                    </button>
                                 </form>
                             )}
 
-                            <Text ta="center" mt="lg" size="sm" c="dimmed">
-                                Sudah punya akun?{' '}
-                                <Anchor
-                                    component="button"
-                                    type="button"
-                                    onClick={() => navigate('/login')}
-                                    c="violet"
-                                    fw={600}
-                                >
+                            <p className={styles.registerText}>
+                                Sudah punya akun?
+                                <a href="#" onClick={(e) => { e.preventDefault(); navigate('/login') }} className={styles.registerLink}>
                                     Masuk sekarang
-                                </Anchor>
-                            </Text>
+                                </a>
+                            </p>
                         </div>
+                    </div>
+
+                    {/* Footer */}
+                    <div className={styles.footer}>
+                        © 2024 Portal Akademik Inc. <a href="#">Privasi</a> • <a href="#">Syarat & Ketentuan</a>
                     </div>
                 </div>
             </div>
-        </Box>
+        </div>
     )
 }
