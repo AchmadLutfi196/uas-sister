@@ -1,6 +1,6 @@
 import { useAuth } from '../../context'
 import { useEffect, useState } from 'react'
-import { courseService, enrollmentService, scheduleService } from '../../services'
+import { courseService, enrollmentService } from '../../services'
 import type { UserWithStudent, Course, Schedule } from '../../types'
 import { Loader, Text } from '@mantine/core'
 import styles from './KRSPage.module.css'
@@ -32,12 +32,17 @@ export function KRSPage() {
             setLoading(true)
             
             const [coursesRes, schedulesRes] = await Promise.all([
-                courseService.getCourses(),
-                scheduleService.getScheduleByStudent(studentUser?.student?.id)
+                courseService.getAll(),
+                studentUser?.student?.id 
+                    ? enrollmentService.getByStudentId(studentUser.student.id)
+                    : Promise.resolve({ data: [] })
             ])
 
             setCourses(coursesRes.data || [])
-            setEnrolledSchedules(schedulesRes.data || [])
+            // Map enrollments to schedules
+            const enrollments = schedulesRes.data || []
+            const schedules = enrollments.map((e: any) => e.schedule).filter(Boolean)
+            setEnrolledSchedules(schedules)
         } catch (error) {
             console.error('Error loading KRS data:', error)
         } finally {
@@ -83,13 +88,9 @@ export function KRSPage() {
         try {
             setSubmitting(true)
             
-            // Enroll in each selected schedule
-            for (const item of cart) {
-                await enrollmentService.enrollCourse({
-                    studentId: studentUser.student.id,
-                    scheduleId: item.schedule.id
-                })
-            }
+            // Enroll in selected schedules using register method
+            const scheduleIds = cart.map(item => item.schedule.id)
+            await enrollmentService.register(scheduleIds)
 
             // Reload data
             await loadData()

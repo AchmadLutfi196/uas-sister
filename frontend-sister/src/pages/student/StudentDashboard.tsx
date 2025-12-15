@@ -1,6 +1,6 @@
 import { useAuth } from '../../context'
 import { useEffect, useState } from 'react'
-import { scheduleService, enrollmentService } from '../../services'
+import { enrollmentService } from '../../services'
 import type { UserWithStudent, Schedule, Enrollment } from '../../types'
 import { Loader, Text } from '@mantine/core'
 import styles from './StudentDashboard.module.css'
@@ -19,7 +19,6 @@ export function StudentDashboard() {
     const studentUser = user as UserWithStudent
     const [stats, setStats] = useState<DashboardStats | null>(null)
     const [loading, setLoading] = useState(true)
-    const [schedules, setSchedules] = useState<Schedule[]>([])
 
     useEffect(() => {
         loadDashboardData()
@@ -29,14 +28,17 @@ export function StudentDashboard() {
         try {
             setLoading(true)
             
-            // Fetch schedules and enrollments
-            const [schedulesRes, enrollmentsRes] = await Promise.all([
-                scheduleService.getScheduleByStudent(studentUser?.student?.id),
-                enrollmentService.getEnrollmentsByStudent(studentUser?.student?.id)
-            ])
+            // Fetch enrollments for the student
+            const enrollmentsRes = studentUser?.student?.id 
+                ? await enrollmentService.getByStudentId(studentUser.student.id)
+                : { data: [] }
 
-            const schedulesData = schedulesRes.data || []
             const enrollmentsData: Enrollment[] = enrollmentsRes.data || []
+            
+            // Extract schedules from enrollments
+            const schedulesData: Schedule[] = enrollmentsData
+                .map((e: any) => e.schedule)
+                .filter(Boolean)
 
             // Get today's day
             const days = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY']
@@ -54,7 +56,6 @@ export function StudentDashboard() {
                 ? gradesWithValue.reduce((sum: number, e: Enrollment) => sum + e.grade, 0) / gradesWithValue.length / 25
                 : 0
 
-            setSchedules(schedulesData)
             setStats({
                 totalSKS,
                 maxSKS: 24,
